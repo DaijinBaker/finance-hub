@@ -20,655 +20,540 @@
     --budget: #f59e0b;
     --subscriptions: #a855f7;
     --transfers: #3b82f6;
-    --savings: #06b6d4;
     --buffer: #64748b;
     --negative: #ef4444;
     --accounts: #ec4899;
+    --portfolio: #f97316;
     --font-display: 'Outfit', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    background: var(--bg-deep);
-    color: var(--text-primary);
-    font-family: var(--font-display);
-    min-height: 100vh;
-    overflow-x: hidden;
+    background: var(--bg-deep); color: var(--text-primary);
+    font-family: var(--font-display); min-height: 100vh;
   }
-
   body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(ellipse at 20% 0%, rgba(34,197,94,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, rgba(59,130,246,0.06) 0%, transparent 50%);
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 20% 0%, rgba(34,197,94,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(59,130,246,0.06) 0%, transparent 50%);
     pointer-events: none;
-    z-index: 0;
   }
-
   .app { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
 
   .header { margin-bottom: 32px; }
   .header h1 {
     font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 4px;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px;
   }
-  .header p { color: var(--text-muted); font-size: 13px; font-weight: 400; }
+  .header p { color: var(--text-muted); font-size: 13px; }
 
-  .summary-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 10px; margin-bottom: 28px;
-  }
+  /* Summary cards */
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 10px; margin-bottom: 28px; }
   .summary-card {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 14px 16px;
-    border-top: 3px solid var(--border);
-    transition: border-color 0.2s;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; border-top: 3px solid var(--border); transition: border-color 0.2s;
   }
   .summary-card:hover { border-color: var(--border-hover); }
-  .summary-card .label {
-    font-size: 10px; color: var(--text-muted); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
-  }
-  .summary-card .value {
-    font-size: 18px; font-weight: 700; font-family: var(--font-mono);
-  }
+  .summary-card .label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .summary-card .value { font-size: 17px; font-weight: 700; font-family: var(--font-mono); }
 
+  /* Flow */
   .flow-container {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px; margin-bottom: 28px;
-    position: relative; overflow: hidden;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 24px; margin-bottom: 28px; position: relative; overflow: hidden;
   }
   .flow-container::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   }
 
-  .tabs {
-    display: flex; gap: 4px; margin-bottom: 20px;
-    border-bottom: 1px solid var(--border); padding-bottom: 2px;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-  }
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 2px; overflow-x: auto; }
   .tab {
-    padding: 8px 16px; border: none; background: none;
-    color: var(--text-muted); font-family: var(--font-display);
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    border-bottom: 2px solid transparent; transition: all 0.2s;
-    white-space: nowrap; border-radius: 6px 6px 0 0;
+    padding: 8px 14px; border: none; background: none; color: var(--text-muted);
+    font-family: var(--font-display); font-size: 13px; font-weight: 500; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; border-radius: 6px 6px 0 0;
   }
   .tab:hover { color: var(--text-secondary); background: rgba(255,255,255,0.02); }
   .tab.active { color: var(--text-primary); border-bottom-color: currentColor; }
 
-  .section-panel {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px; margin-bottom: 16px;
-    animation: fadeIn 0.2s ease;
-  }
+  /* Panels */
+  .section-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; animation: fadeIn 0.2s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .section-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .section-total { font-family: var(--font-mono); font-size: 14px; font-weight: 600; }
 
-  .section-header {
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
-  }
-  .section-title {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 15px; font-weight: 600;
-  }
-  .section-dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  }
-  .section-total {
-    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
-  }
+  /* Rows */
+  .row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 2px 4px; border-radius: 6px; transition: background 0.15s; }
+  .row.dragging { opacity: 0.35; }
+  .row.drag-over { background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
+  .drag-handle { cursor: grab; color: var(--text-muted); font-size: 13px; flex-shrink: 0; user-select: none; opacity: 0.3; transition: opacity 0.2s; padding: 0 2px; }
+  .drag-handle:hover { opacity: 0.8; }
+  .drag-handle:active { cursor: grabbing; }
+  .row-bar { width: 3px; height: 32px; border-radius: 2px; flex-shrink: 0; }
 
-  .row {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  /* Inputs */
+  input, select {
+    background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; color: var(--text-primary); font-size: 13px; font-family: var(--font-mono);
+    outline: none; transition: border-color 0.2s;
   }
-  .row-bar {
-    width: 3px; height: 32px; border-radius: 2px; flex-shrink: 0;
-  }
-  .row input[type="text"], .row input[type="number"], .row select {
-    background: var(--bg-input); border: 1px solid var(--border);
-    border-radius: 6px; padding: 7px 10px; color: var(--text-primary);
-    font-size: 13px; font-family: var(--font-mono); outline: none;
-    transition: border-color 0.2s;
-  }
-  .row input:focus, .row select:focus { border-color: var(--border-hover); }
-  .row input[type="text"] { flex: 1; min-width: 0; }
-  .row input[type="number"] { width: 100px; text-align: right; }
-  .row select {
-    width: 120px; font-family: var(--font-display); cursor: pointer;
-    -webkit-appearance: none; appearance: none;
+  input:focus, select:focus { border-color: var(--border-hover); }
+  select {
+    font-family: var(--font-display); cursor: pointer; -webkit-appearance: none; appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 8px center;
-    padding-right: 24px;
+    background-repeat: no-repeat; background-position: right 8px center; padding-right: 24px;
   }
-  .row select option { background: #1e293b; color: var(--text-primary); }
+  select option { background: #1e293b; color: var(--text-primary); }
+  .input-grow { flex: 1; min-width: 0; }
+  .input-amount { width: 110px; text-align: right; padding-left: 22px; }
+  .input-select { width: 130px; }
 
-  .btn-remove {
-    background: none; border: none; color: var(--text-muted);
-    cursor: pointer; font-size: 15px; padding: 2px 6px;
-    line-height: 1; flex-shrink: 0; opacity: 0.4;
-    transition: opacity 0.2s, color 0.2s;
-  }
+  .amount-cell { position: relative; flex-shrink: 0; }
+  .amount-cell .sign { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; font-family: var(--font-mono); pointer-events: none; z-index: 1; }
+
+  .btn-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 15px; padding: 2px 6px; line-height: 1; flex-shrink: 0; opacity: 0.3; transition: all 0.2s; }
   .btn-remove:hover { opacity: 1; color: var(--negative); }
-
-  .btn-add {
-    background: none; border: 1px dashed var(--border);
-    border-radius: 6px; padding: 5px 14px; color: var(--text-muted);
-    cursor: pointer; font-size: 12px; margin-top: 8px;
-    font-family: var(--font-display); transition: all 0.2s;
-  }
+  .btn-add { background: none; border: 1px dashed var(--border); border-radius: 6px; padding: 5px 14px; color: var(--text-muted); cursor: pointer; font-size: 12px; margin-top: 8px; font-family: var(--font-display); transition: all 0.2s; }
   .btn-add:hover { border-color: var(--border-hover); color: var(--text-secondary); }
 
-  .toolbar {
-    display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px;
-    padding-top: 16px; border-top: 1px solid var(--border);
+  /* Portfolio */
+  .ptabs { display: flex; gap: 6px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+  .ptab {
+    padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-input);
+    color: var(--text-muted); font-size: 12px; font-family: var(--font-display); font-weight: 500;
+    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
   }
-  .toolbar button {
-    padding: 8px 18px; border-radius: 8px; font-size: 12px;
-    font-family: var(--font-display); font-weight: 500; cursor: pointer;
-    transition: all 0.2s; border: 1px solid var(--border);
-    background: var(--bg-input); color: var(--text-secondary);
+  .ptab:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+  .ptab.active { border-color: var(--portfolio); color: var(--portfolio); background: rgba(249,115,22,0.1); }
+  .ptab .ptab-close { font-size: 14px; opacity: 0.4; transition: opacity 0.2s; }
+  .ptab .ptab-close:hover { opacity: 1; color: var(--negative); }
+  .ptab-add { padding: 6px 12px; border-radius: 8px; border: 1px dashed var(--border); background: none; color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: var(--font-display); transition: all 0.2s; }
+  .ptab-add:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+
+  .stock-grid { display: grid; gap: 6px; }
+  .stock-header, .stock-row {
+    display: grid; grid-template-columns: 28px 70px 1fr 70px 85px 85px 90px 75px 28px;
+    gap: 6px; align-items: center; padding: 2px 0;
   }
+  .stock-header { padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+  .stock-header span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; }
+  .stock-row { border-radius: 6px; transition: background 0.15s; }
+  .stock-row.dragging { opacity: 0.35; }
+  .stock-row.drag-over { background: rgba(255,255,255,0.05); }
+  .stock-row input { width: 100%; font-size: 12px; padding: 6px 8px; }
+  .stock-row input.ticker-input { font-weight: 600; text-transform: uppercase; }
+  .stock-row input[type="number"] { text-align: right; }
+  .computed { font-family: var(--font-mono); font-size: 12px; padding: 6px 8px; border-radius: 6px; background: rgba(255,255,255,0.02); text-align: right; white-space: nowrap; overflow: hidden; }
+  .gain-pos { color: var(--income); }
+  .gain-neg { color: var(--negative); }
+  .gain-flat { color: var(--text-muted); }
+
+  .port-summary { display: flex; gap: 24px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .port-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+  .port-stat-value { font-size: 16px; font-weight: 600; font-family: var(--font-mono); }
+
+  /* Portfolio name edit */
+  .pname-input { background: none; border: none; color: var(--portfolio); font-family: var(--font-display); font-size: 15px; font-weight: 600; outline: none; width: auto; padding: 0; }
+  .pname-input:focus { border-bottom: 1px solid var(--portfolio); }
+
+  /* Toolbar */
+  .toolbar { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .toolbar button { padding: 8px 18px; border-radius: 8px; font-size: 12px; font-family: var(--font-display); font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1px solid var(--border); background: var(--bg-input); color: var(--text-secondary); }
   .toolbar button:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
   .toolbar .btn-danger:hover { border-color: var(--negative); color: var(--negative); }
-  .toolbar .btn-save {
-    background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: var(--income);
-  }
-  .toolbar .btn-save:hover { background: rgba(34,197,94,0.25); }
+  .save-indicator { font-size: 11px; color: var(--text-muted); font-style: italic; text-align: right; margin-top: 8px; }
 
-  .save-indicator {
-    font-size: 11px; color: var(--text-muted); font-style: italic;
-    text-align: right; margin-top: 8px;
-  }
-
-  .amount-wrapper {
-    position: relative; flex-shrink: 0;
-  }
-  .amount-wrapper .currency-sign {
-    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-    color: var(--text-muted); font-size: 13px; font-family: var(--font-mono);
-    pointer-events: none;
-  }
-  .amount-wrapper input {
-    padding-left: 22px !important;
-  }
-
-  @media (max-width: 600px) {
-    .app { padding: 16px 12px 40px; }
+  @media (max-width: 700px) {
+    .stock-header, .stock-row { grid-template-columns: 24px 55px 1fr 55px 70px 70px 75px 60px 24px; gap: 4px; }
+    .stock-row input, .computed { font-size: 11px; padding: 5px 6px; }
     .summary-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .summary-card { padding: 10px 12px; }
     .summary-card .value { font-size: 14px; }
-    .row { flex-wrap: wrap; }
-    .row input[type="text"] { flex-basis: 100%; }
-    .row select { flex: 1; }
   }
 </style>
 </head>
 <body>
 <div id="root" class="app"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-
 <script>
 const e = React.createElement;
-const { useState, useMemo, useEffect, useCallback } = React;
+const { useState, useMemo, useEffect, useCallback, useRef } = React;
 
-const STORAGE_KEY = 'finance-hub-data';
-
+const STORAGE_KEY = 'finance-hub-v3';
 const DEFAULT_DATA = {
-  accounts: [
-    { name: "AU Everyday", type: "Everyday", balance: 0 },
-    { name: "AU Emergency Savings", type: "Savings", balance: 0 },
-    { name: "AU Travel Fund", type: "Savings", balance: 0 },
-    { name: "NZ Account", type: "Savings", balance: 0 },
-  ],
-  income: [
-    { name: "Monthly Salary", amount: 0, source: "Salary" },
-  ],
-  budget: [
-    { name: "Rent", amount: 0 },
-    { name: "Utilities", amount: 0 },
-    { name: "Groceries", amount: 0 },
-    { name: "Health", amount: 0 },
-    { name: "Personal", amount: 0 },
-    { name: "Dining/Entertainment", amount: 0 },
-  ],
-  subscriptions: [
-    { name: "Phone Bill", amount: 0, cycle: "Monthly", category: "Productivity" },
-  ],
-  transfers: [
-    { name: "Emergency Savings", amount: 0, to: "Savings", status: "Scheduled" },
+  accounts: [{ name: "AU Everyday", type: "Everyday", balance: 0 }, { name: "AU Savings", type: "Savings", balance: 0 }],
+  income: [{ name: "Monthly Salary", amount: 0, source: "Salary" }],
+  budget: [{ name: "Rent", amount: 0 }, { name: "Utilities", amount: 0 }, { name: "Groceries", amount: 0 }, { name: "Health", amount: 0 }, { name: "Personal", amount: 0 }, { name: "Dining/Entertainment", amount: 0 }],
+  subscriptions: [{ name: "Phone Bill", amount: 0, cycle: "Monthly", category: "Productivity" }],
+  transfers: [{ name: "Savings", amount: 0, to: "AU Savings", status: "Scheduled" }],
+  portfolios: [
+    { name: "AU Portfolio", stocks: [{ ticker: "", name: "New Stock", shares: 0, avgCost: 0, currentPrice: 0 }] },
+    { name: "NZ Portfolio", stocks: [{ ticker: "", name: "New Stock", shares: 0, avgCost: 0, currentPrice: 0 }] },
   ],
 };
 
-const COLORS = {
-  income: '#22c55e', budget: '#f59e0b', subscriptions: '#a855f7',
-  transfers: '#3b82f6', savings: '#06b6d4', buffer: '#64748b',
-  negative: '#ef4444', accounts: '#ec4899',
-};
-
+const COLORS = { income: '#22c55e', budget: '#f59e0b', subscriptions: '#a855f7', transfers: '#3b82f6', buffer: '#64748b', negative: '#ef4444', accounts: '#ec4899', portfolio: '#f97316' };
 const ACCOUNT_TYPES = ["Everyday", "Savings", "Investment", "Credit Card"];
 const INCOME_SOURCES = ["Salary", "Freelance", "Side Hustle", "Investment Returns", "Refund", "Other"];
 const SUB_CYCLES = ["Monthly", "Annual", "Weekly"];
 const SUB_CATEGORIES = ["Productivity", "Entertainment", "Health", "Finance", "Insurance", "Other"];
 const TRANSFER_STATUSES = ["Scheduled", "Completed", "Paused"];
-const TRANSFER_CATEGORIES = ["Savings", "Investment", "Family", "Debt Repayment", "Other"];
 
-function loadData() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      return { ...DEFAULT_DATA, ...parsed };
-    }
-  } catch(err) { console.error('Load error:', err); }
-  return DEFAULT_DATA;
+function load() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const p = JSON.parse(s); return { ...DEFAULT_DATA, ...p }; } } catch(e) {} return DEFAULT_DATA; }
+function save(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
+function arrSum(a, k) { return a.reduce((s, i) => s + (parseFloat(i[k || 'amount']) || 0), 0); }
+function fmt(n) { const v = isNaN(n) ? 0 : Math.abs(n); return '$' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function fmtS(n) { const v = isNaN(n) ? 0 : Math.abs(n); return '$' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function stockValue(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.currentPrice) || 0); }
+function stockCost(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.avgCost) || 0); }
+function allPortfolioValue(portfolios) { return (portfolios || []).reduce((s, p) => s + p.stocks.reduce((ss, st) => ss + stockValue(st), 0), 0); }
+
+// Drag hook
+function useDrag(items, onReorder) {
+  const from = useRef(null), to = useRef(null);
+  const [dI, setDI] = useState(null), [oI, setOI] = useState(null);
+  const h = useCallback((i) => ({
+    onDragStart: (ev) => { from.current = i; setDI(i); ev.dataTransfer.effectAllowed = 'move'; ev.dataTransfer.setData('text/plain', ''); },
+    onDragOver: (ev) => { ev.preventDefault(); to.current = i; setOI(i); },
+    onDragEnd: () => {
+      if (from.current !== null && to.current !== null && from.current !== to.current) {
+        const r = [...items]; const [m] = r.splice(from.current, 1); r.splice(to.current, 0, m); onReorder(r);
+      }
+      from.current = null; to.current = null; setDI(null); setOI(null);
+    },
+    onDragLeave: () => { if (to.current === i) { to.current = null; setOI(null); } },
+  }), [items, onReorder]);
+  return { h, dI, oI };
 }
 
-function saveData(data) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(err) { console.error('Save error:', err); }
-}
-
-function sum(arr, key) {
-  return arr.reduce((s, item) => s + (parseFloat(key ? item[key] : item.amount) || 0), 0);
-}
-
-function fmt(n) { return '$' + Math.abs(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
-function fmtShort(n) { return '$' + Math.abs(n).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
-
-// Sankey Flow Component
-function SankeyFlow(props) {
-  const { data } = props;
-  const totals = {
-    income: sum(data.income),
-    budget: sum(data.budget),
-    subscriptions: sum(data.subscriptions),
-    transfers: sum(data.transfers),
-  };
-  const totalOut = totals.budget + totals.subscriptions + totals.transfers;
-  const buffer = totals.income - totalOut;
-
-  const categories = [
-    { key: 'budget', label: 'Budget', total: totals.budget, color: COLORS.budget },
-    { key: 'subscriptions', label: 'Subscriptions', total: totals.subscriptions, color: COLORS.subscriptions },
-    { key: 'transfers', label: 'Transfers', total: totals.transfers, color: COLORS.transfers },
-    { key: 'buffer', label: buffer >= 0 ? 'Buffer' : 'Shortfall', total: Math.abs(buffer), color: buffer >= 0 ? COLORS.buffer : COLORS.negative },
-  ].filter(c => c.total > 0);
-
-  if (totals.income === 0 && totalOut === 0) {
-    return e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#64748b', fontSize: 14 } },
-      'Add your income and expenses to see the money flow diagram'
-    );
-  }
-
-  const width = 700, height = 340;
-  const leftX = 80, rightX = 580, nodeWidth = 14, padding = 14;
-  const topPad = 20;
-
-  const totalWithBuffer = categories.reduce((s, c) => s + c.total, 0);
-  const availableHeight = height - topPad * 2 - (categories.length - 1) * padding;
-  const incomeNodeHeight = availableHeight;
-
-  let currentY = topPad;
-  const rightNodes = categories.map(cat => {
-    const h = Math.max(20, (cat.total / totalWithBuffer) * availableHeight);
-    const node = { ...cat, y: currentY, h };
-    currentY += h + padding;
-    return node;
-  });
-
-  const actualH = currentY - padding - topPad;
-  const yOff = (availableHeight - actualH) / 2;
-  rightNodes.forEach(n => n.y += yOff);
-
-  const flows = [];
-  let flowY = topPad;
-  rightNodes.forEach(node => {
-    const fh = (node.total / totalWithBuffer) * incomeNodeHeight;
-    flows.push({ sy: flowY, sh: fh, ty: node.y, th: node.h, color: node.color, label: node.label, amount: node.total });
-    flowY += fh;
-  });
-
-  const sx = leftX + nodeWidth, tx = rightX, mx = (sx + tx) / 2;
-
-  const defs = flows.map((f, i) =>
-    e('linearGradient', { key: i, id: 'gf' + i, x1: 0, x2: 1, y1: 0, y2: 0 },
-      e('stop', { offset: '0%', stopColor: COLORS.income, stopOpacity: 0.45 }),
-      e('stop', { offset: '100%', stopColor: f.color, stopOpacity: 0.45 })
-    )
-  );
-
-  const paths = flows.map((f, i) => {
-    const d = `M ${sx} ${f.sy} C ${mx} ${f.sy}, ${mx} ${f.ty}, ${tx} ${f.ty} L ${tx} ${f.ty + f.th} C ${mx} ${f.ty + f.th}, ${mx} ${f.sy + f.sh}, ${sx} ${f.sy + f.sh} Z`;
-    return e('path', { key: i, d, fill: 'url(#gf' + i + ')' });
-  });
-
-  const incomeNode = [
-    e('rect', { key: 'in', x: leftX, y: topPad, width: nodeWidth, height: incomeNodeHeight, rx: 5, fill: COLORS.income }),
-    e('text', { key: 'inl', x: leftX - 12, y: topPad + incomeNodeHeight / 2 - 10, textAnchor: 'end', fill: '#e2e8f0', fontSize: 13, fontWeight: 600, fontFamily: "'Outfit', sans-serif" }, 'Income'),
-    e('text', { key: 'inv', x: leftX - 12, y: topPad + incomeNodeHeight / 2 + 10, textAnchor: 'end', fill: COLORS.income, fontSize: 12, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }, fmtShort(totals.income)),
-  ];
-
-  const rightNodesEl = rightNodes.map((n, i) =>
-    e('g', { key: i },
-      e('rect', { x: rightX, y: n.y, width: nodeWidth, height: n.h, rx: 5, fill: n.color }),
-      e('text', { x: rightX + nodeWidth + 12, y: n.y + n.h / 2 - 8, dominantBaseline: 'middle', fill: '#e2e8f0', fontSize: 12, fontWeight: 500, fontFamily: "'Outfit', sans-serif" }, n.label),
-      e('text', { x: rightX + nodeWidth + 12, y: n.y + n.h / 2 + 10, dominantBaseline: 'middle', fill: n.color, fontSize: 11, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }, fmtShort(n.amount))
-    )
-  );
-
-  return e('svg', { viewBox: '0 0 ' + width + ' ' + height, style: { width: '100%', height: 'auto' } },
-    e('defs', null, ...defs), ...paths, ...incomeNode, ...rightNodesEl
+// Amount field
+function Amt(props) {
+  return e('div', { className: 'amount-cell' },
+    e('span', { className: 'sign' }, '$'),
+    e('input', { type: 'number', className: 'input-amount', value: props.value || 0, step: '0.01',
+      onChange: (ev) => props.onChange(parseFloat(ev.target.value) || 0) })
   );
 }
 
-// Editable Row
-function EditableRow(props) {
-  const { item, color, fields, onChange, onRemove } = props;
-
-  const elements = [
-    e('div', { key: 'bar', className: 'row-bar', style: { backgroundColor: color } })
-  ];
-
-  fields.forEach((field, fi) => {
-    if (field.type === 'text') {
-      elements.push(e('input', {
-        key: fi, type: 'text', value: item[field.key] || '',
-        placeholder: field.placeholder || '',
-        style: field.style || {},
-        onChange: ev => onChange({ ...item, [field.key]: ev.target.value })
-      }));
-    } else if (field.type === 'number') {
-      elements.push(e('div', { key: fi, className: 'amount-wrapper', style: field.wrapperStyle || {} },
-        e('span', { className: 'currency-sign' }, '$'),
-        e('input', {
-          type: 'number', value: item[field.key] || 0, step: '0.01',
-          onChange: ev => onChange({ ...item, [field.key]: parseFloat(ev.target.value) || 0 })
-        })
-      ));
-    } else if (field.type === 'select') {
-      elements.push(e('select', {
-        key: fi, value: item[field.key] || field.options[0],
-        style: field.style || {},
-        onChange: ev => onChange({ ...item, [field.key]: ev.target.value })
-      }, field.options.map(opt => e('option', { key: opt, value: opt }, opt))));
-    }
-  });
-
-  elements.push(e('button', { key: 'rm', className: 'btn-remove', onClick: onRemove, title: 'Remove' }, '\u00d7'));
-
-  return e('div', { className: 'row' }, ...elements);
-}
-
-// Section Component
+// Section
 function Section(props) {
   const { title, color, items, fields, sectionKey, onChange, defaultItem } = props;
-  const total = sum(items, fields.find(f => f.type === 'number')?.key || 'amount');
+  const total = arrSum(items, fields.find(f => f.amount)?.key || 'amount');
+  const { h, dI, oI } = useDrag(items, (r) => onChange(sectionKey, r));
 
-  const updateItem = (index, newItem) => {
-    const updated = [...items];
-    updated[index] = newItem;
-    onChange(sectionKey, updated);
-  };
-
-  const removeItem = (index) => onChange(sectionKey, items.filter((_, i) => i !== index));
-  const addItem = () => onChange(sectionKey, [...items, { ...defaultItem }]);
+  const upd = (i, k, v) => { const u = [...items]; u[i] = { ...u[i], [k]: v }; onChange(sectionKey, u); };
+  const rm = (i) => onChange(sectionKey, items.filter((_, idx) => idx !== i));
+  const add = () => onChange(sectionKey, [...items, { ...defaultItem }]);
 
   return e('div', { style: { marginBottom: 8 } },
     e('div', { className: 'section-header' },
-      e('div', { className: 'section-title' },
-        e('div', { className: 'section-dot', style: { backgroundColor: color } }),
-        title
-      ),
+      e('div', { className: 'section-title' }, e('div', { className: 'section-dot', style: { backgroundColor: color } }), title),
       e('div', { className: 'section-total', style: { color } }, fmt(total))
     ),
-    items.map((item, i) =>
-      e(EditableRow, { key: i, item, color, fields, onChange: newItem => updateItem(i, newItem), onRemove: () => removeItem(i) })
-    ),
-    e('button', { className: 'btn-add', onClick: addItem }, '+ Add')
+    items.map((item, i) => {
+      const d = h(i);
+      return e('div', {
+        key: i, className: 'row' + (dI === i ? ' dragging' : '') + (oI === i ? ' drag-over' : ''),
+        onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave,
+      },
+        e('span', { className: 'drag-handle', draggable: true, onDragStart: d.onDragStart, onDragEnd: d.onDragEnd }, '\u2847'),
+        e('div', { className: 'row-bar', style: { backgroundColor: color } }),
+        ...fields.map((f, fi) => {
+          if (f.amount) return e(Amt, { key: fi, value: item[f.key], onChange: (v) => upd(i, f.key, v) });
+          if (f.options) return e('select', { key: fi, className: 'input-select', style: f.width ? { width: f.width } : {},
+            value: item[f.key] || f.options[0], onChange: (ev) => upd(i, f.key, ev.target.value) },
+            f.options.map(o => e('option', { key: o, value: o }, o)));
+          return e('input', { key: fi, type: 'text', className: f.grow ? 'input-grow' : '',
+            style: f.width ? { width: f.width } : {}, value: item[f.key] || '', placeholder: f.placeholder || '',
+            onChange: (ev) => upd(i, f.key, ev.target.value) });
+        }),
+        e('button', { className: 'btn-remove', onClick: () => rm(i) }, '\u00d7')
+      );
+    }),
+    e('button', { className: 'btn-add', onClick: add }, '+ Add')
   );
 }
 
-// Main App
+// Sankey
+function Sankey(props) {
+  const d = props.data;
+  const t = { income: arrSum(d.income, 'amount'), budget: arrSum(d.budget, 'amount'), subs: arrSum(d.subscriptions, 'amount'), xfer: arrSum(d.transfers, 'amount') };
+  const out = t.budget + t.subs + t.xfer;
+  const buf = t.income - out;
+  const cats = [
+    { label: 'Budget', total: t.budget, color: COLORS.budget },
+    { label: 'Subscriptions', total: t.subs, color: COLORS.subscriptions },
+    { label: 'Transfers', total: t.xfer, color: COLORS.transfers },
+    { label: buf >= 0 ? 'Buffer' : 'Shortfall', total: Math.abs(buf), color: buf >= 0 ? COLORS.buffer : COLORS.negative },
+  ].filter(c => c.total > 0);
+
+  if (t.income === 0 && out === 0) return e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#64748b', fontSize: 14 } }, 'Add income and expenses to see the flow');
+
+  const W = 700, H = 340, lx = 80, rx = 580, nw = 14, pd = 14, tp = 20;
+  const tot = cats.reduce((s, c) => s + c.total, 0);
+  const aH = H - tp * 2 - (cats.length - 1) * pd;
+  let cy = tp;
+  const rn = cats.map(c => { const h = Math.max(20, (c.total / tot) * aH); const n = { ...c, y: cy, h }; cy += h + pd; return n; });
+  const off = (aH - (cy - pd - tp)) / 2; rn.forEach(n => n.y += off);
+  const sx = lx + nw, mx = (sx + rx) / 2;
+  let fy = tp;
+
+  return e('svg', { viewBox: '0 0 ' + W + ' ' + H, style: { width: '100%', height: 'auto' } },
+    e('defs', null, ...rn.map((n, i) =>
+      e('linearGradient', { key: i, id: 'g' + i, x1: 0, x2: 1, y1: 0, y2: 0 },
+        e('stop', { offset: '0%', stopColor: COLORS.income, stopOpacity: 0.45 }),
+        e('stop', { offset: '100%', stopColor: n.color, stopOpacity: 0.45 }))
+    )),
+    ...rn.map((n, i) => {
+      const fh = (n.total / tot) * aH; const sfy = fy; fy += fh;
+      return e('path', { key: 'p' + i, fill: 'url(#g' + i + ')',
+        d: 'M ' + sx + ' ' + sfy + ' C ' + mx + ' ' + sfy + ',' + mx + ' ' + n.y + ',' + rx + ' ' + n.y +
+           ' L ' + rx + ' ' + (n.y + n.h) + ' C ' + mx + ' ' + (n.y + n.h) + ',' + mx + ' ' + (sfy + fh) + ',' + sx + ' ' + (sfy + fh) + ' Z' });
+    }),
+    e('rect', { x: lx, y: tp, width: nw, height: aH, rx: 5, fill: COLORS.income }),
+    e('text', { x: lx - 12, y: tp + aH / 2 - 10, textAnchor: 'end', fill: '#e2e8f0', fontSize: 13, fontWeight: 600, fontFamily: "'Outfit'" }, 'Income'),
+    e('text', { x: lx - 12, y: tp + aH / 2 + 10, textAnchor: 'end', fill: COLORS.income, fontSize: 12, fontWeight: 600, fontFamily: "'IBM Plex Mono'" }, fmtS(t.income)),
+    ...rn.map((n, i) => e('g', { key: 'r' + i },
+      e('rect', { x: rx, y: n.y, width: nw, height: n.h, rx: 5, fill: n.color }),
+      e('text', { x: rx + nw + 12, y: n.y + n.h / 2 - 8, dominantBaseline: 'middle', fill: '#e2e8f0', fontSize: 12, fontWeight: 500, fontFamily: "'Outfit'" }, n.label),
+      e('text', { x: rx + nw + 12, y: n.y + n.h / 2 + 10, dominantBaseline: 'middle', fill: n.color, fontSize: 11, fontWeight: 600, fontFamily: "'IBM Plex Mono'" }, fmtS(n.total))
+    ))
+  );
+}
+
+// Portfolio
+function Portfolio(props) {
+  const { portfolios, onChange } = props;
+  const [active, setActive] = useState(0);
+  const safeActive = Math.min(active, portfolios.length - 1);
+  const port = portfolios[safeActive];
+  if (!port) return null;
+
+  const { h: dragH, dI, oI } = useDrag(port.stocks, (reordered) => {
+    const updated = [...portfolios]; updated[safeActive] = { ...port, stocks: reordered }; onChange('portfolios', updated);
+  });
+
+  const updStock = (si, k, v) => {
+    const up = [...portfolios]; const stocks = [...port.stocks]; stocks[si] = { ...stocks[si], [k]: v };
+    up[safeActive] = { ...port, stocks }; onChange('portfolios', up);
+  };
+  const rmStock = (si) => {
+    const up = [...portfolios]; up[safeActive] = { ...port, stocks: port.stocks.filter((_, i) => i !== si) }; onChange('portfolios', up);
+  };
+  const addStock = () => {
+    const up = [...portfolios]; up[safeActive] = { ...port, stocks: [...port.stocks, { ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] }; onChange('portfolios', up);
+  };
+  const renamePort = (newName) => {
+    const up = [...portfolios]; up[safeActive] = { ...port, name: newName }; onChange('portfolios', up);
+  };
+  const addPortfolio = () => {
+    const newP = { name: 'Portfolio ' + (portfolios.length + 1), stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] };
+    onChange('portfolios', [...portfolios, newP]); setActive(portfolios.length);
+  };
+  const removePortfolio = (pi) => {
+    if (portfolios.length <= 1) return;
+    if (!confirm('Remove "' + portfolios[pi].name + '"? This cannot be undone.')) return;
+    const up = portfolios.filter((_, i) => i !== pi);
+    onChange('portfolios', up);
+    if (safeActive >= up.length) setActive(up.length - 1);
+    else if (pi < safeActive) setActive(safeActive - 1);
+  };
+
+  let totalInv = 0, totalVal = 0;
+  port.stocks.forEach(s => { totalInv += stockCost(s); totalVal += stockValue(s); });
+  const totalGL = totalVal - totalInv;
+  const totalGLP = totalInv > 0 ? ((totalGL / totalInv) * 100).toFixed(1) : '0.0';
+
+  let allInv = 0, allVal = 0;
+  portfolios.forEach(p => p.stocks.forEach(s => { allInv += stockCost(s); allVal += stockValue(s); }));
+
+  return e('div', null,
+    // Portfolio tabs
+    e('div', { className: 'ptabs' },
+      ...portfolios.map((p, pi) =>
+        e('button', { key: pi, className: 'ptab' + (pi === safeActive ? ' active' : ''), onClick: () => setActive(pi) },
+          e('span', null, p.name),
+          portfolios.length > 1 ? e('span', { className: 'ptab-close', onClick: (ev) => { ev.stopPropagation(); removePortfolio(pi); } }, '\u00d7') : null
+        )
+      ),
+      e('button', { className: 'ptab-add', onClick: addPortfolio }, '+ Add Portfolio')
+    ),
+
+    // Active portfolio header
+    e('div', { className: 'section-header' },
+      e('div', { className: 'section-title' },
+        e('div', { className: 'section-dot', style: { backgroundColor: COLORS.portfolio } }),
+        e('input', { className: 'pname-input', value: port.name, onChange: (ev) => renamePort(ev.target.value) })
+      ),
+      e('div', { className: 'section-total', style: { color: COLORS.portfolio } }, fmt(totalVal))
+    ),
+
+    // Stock table
+    e('div', { className: 'stock-grid' },
+      e('div', { className: 'stock-header' },
+        e('span'), e('span', null, 'Ticker'), e('span', null, 'Name'), e('span', null, 'Shares'),
+        e('span', null, 'Avg Cost'), e('span', null, 'Price'), e('span', null, 'Value'), e('span', null, 'G/L %'), e('span')
+      ),
+      ...port.stocks.map((st, si) => {
+        const val = stockValue(st), cost = stockCost(st), gl = val - cost;
+        const glp = cost > 0 ? ((gl / cost) * 100).toFixed(1) : '0.0';
+        const cls = gl > 0 ? 'gain-pos' : gl < 0 ? 'gain-neg' : 'gain-flat';
+        const d = dragH(si);
+        return e('div', {
+          key: si, className: 'stock-row' + (dI === si ? ' dragging' : '') + (oI === si ? ' drag-over' : ''),
+          onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave,
+        },
+          e('span', { className: 'drag-handle', draggable: true, onDragStart: d.onDragStart, onDragEnd: d.onDragEnd }, '\u2847'),
+          e('input', { className: 'ticker-input', value: st.ticker || '', placeholder: 'TKR', onChange: (ev) => updStock(si, 'ticker', ev.target.value) }),
+          e('input', { value: st.name || '', placeholder: 'Stock name', onChange: (ev) => updStock(si, 'name', ev.target.value) }),
+          e('input', { type: 'number', value: st.shares || 0, step: '0.01', onChange: (ev) => updStock(si, 'shares', ev.target.value) }),
+          e('input', { type: 'number', value: st.avgCost || 0, step: '0.01', onChange: (ev) => updStock(si, 'avgCost', ev.target.value) }),
+          e('input', { type: 'number', value: st.currentPrice || 0, step: '0.01', onChange: (ev) => updStock(si, 'currentPrice', ev.target.value) }),
+          e('div', { className: 'computed' }, fmtS(val)),
+          e('div', { className: 'computed ' + cls }, (gl >= 0 ? '+' : '') + glp + '%'),
+          e('button', { className: 'btn-remove', onClick: () => rmStock(si) }, '\u00d7')
+        );
+      })
+    ),
+    e('button', { className: 'btn-add', onClick: addStock }, '+ Add Stock'),
+
+    // Summary
+    e('div', { className: 'port-summary' },
+      e('div', null,
+        e('div', { className: 'port-stat-label' }, 'This Portfolio'),
+        e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(totalVal)),
+        e('div', { className: 'port-stat-label', style: { marginTop: 2 } },
+          e('span', { className: totalGL >= 0 ? 'gain-pos' : 'gain-neg' },
+            (totalGL >= 0 ? '+' : '-') + fmt(totalGL) + ' (' + (totalGL >= 0 ? '+' : '') + totalGLP + '%)'
+          )
+        )
+      ),
+      e('div', null,
+        e('div', { className: 'port-stat-label' }, 'Total Invested (this)'),
+        e('div', { className: 'port-stat-value', style: { color: '#e2e8f0' } }, fmt(totalInv))
+      ),
+      e('div', null,
+        e('div', { className: 'port-stat-label' }, 'All Portfolios'),
+        e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(allVal)),
+        e('div', { className: 'port-stat-label', style: { marginTop: 2 } },
+          e('span', { className: (allVal - allInv) >= 0 ? 'gain-pos' : 'gain-neg' },
+            ((allVal - allInv) >= 0 ? '+' : '-') + fmt(allVal - allInv))
+        )
+      )
+    )
+  );
+}
+
+// App
 function App() {
-  const [data, setData] = useState(loadData);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [lastSaved, setLastSaved] = useState(null);
+  const [data, setData] = useState(load);
+  const [tab, setTab] = useState('overview');
+  const [saved, setSaved] = useState(null);
 
-  const handleChange = useCallback((key, items) => {
-    setData(prev => ({ ...prev, [key]: items }));
-  }, []);
-
-  const handleSave = useCallback(() => {
-    saveData(data);
-    setLastSaved(new Date().toLocaleTimeString());
-  }, [data]);
-
-  const handleReset = useCallback(() => {
-    if (confirm('Reset all data to defaults? This cannot be undone.')) {
-      setData(DEFAULT_DATA);
-      saveData(DEFAULT_DATA);
-      setLastSaved(null);
-    }
-  }, []);
-
-  const handleExport = useCallback(() => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'finance-hub-backup.json'; a.click();
-    URL.revokeObjectURL(url);
-  }, [data]);
-
-  const handleImport = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file'; input.accept = '.json';
-    input.onchange = (ev) => {
-      const file = ev.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (re) => {
-        try {
-          const imported = JSON.parse(re.target.result);
-          setData({ ...DEFAULT_DATA, ...imported });
-          saveData({ ...DEFAULT_DATA, ...imported });
-          setLastSaved(new Date().toLocaleTimeString());
-        } catch(err) { alert('Invalid file format.'); }
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  }, []);
-
-  // Auto-save on change
+  // Ensure portfolios exist (migration from v2)
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      saveData(data);
-      setLastSaved(new Date().toLocaleTimeString());
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [data]);
+    if (!data.portfolios) setData(d => ({ ...d, portfolios: DEFAULT_DATA.portfolios }));
+  }, []);
 
-  const totals = useMemo(() => ({
-    income: sum(data.income),
-    budget: sum(data.budget),
-    subscriptions: sum(data.subscriptions),
-    transfers: sum(data.transfers),
-    accounts: sum(data.accounts, 'balance'),
+  const ch = useCallback((k, v) => setData(d => ({ ...d, [k]: v })), []);
+  useEffect(() => { const t = setTimeout(() => { save(data); setSaved(new Date().toLocaleTimeString()); }, 800); return () => clearTimeout(t); }, [data]);
+
+  const handleExport = () => { const b = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = 'finance-hub.json'; a.click(); URL.revokeObjectURL(u); };
+  const handleImport = () => { const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json'; inp.onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = (re) => { try { const d = JSON.parse(re.target.result); setData({ ...DEFAULT_DATA, ...d }); save({ ...DEFAULT_DATA, ...d }); setSaved(new Date().toLocaleTimeString()); } catch(e) { alert('Invalid file.'); } }; r.readAsText(f); }; inp.click(); };
+  const handleReset = () => { if (confirm('Reset all data? This cannot be undone.')) { setData(DEFAULT_DATA); save(DEFAULT_DATA); setSaved(null); } };
+
+  const tot = useMemo(() => ({
+    income: arrSum(data.income, 'amount'), budget: arrSum(data.budget, 'amount'),
+    subs: arrSum(data.subscriptions, 'amount'), xfer: arrSum(data.transfers, 'amount'),
+    acct: arrSum(data.accounts, 'balance'), port: allPortfolioValue(data.portfolios),
   }), [data]);
 
-  const totalOut = totals.budget + totals.subscriptions + totals.transfers;
-  const buffer = totals.income - totalOut;
+  const out = tot.budget + tot.subs + tot.xfer;
+  const buf = tot.income - out;
 
-  const summaryCards = [
-    { label: 'Income', value: totals.income, color: COLORS.income },
-    { label: 'Budget', value: totals.budget, color: COLORS.budget },
-    { label: 'Subscriptions', value: totals.subscriptions, color: COLORS.subscriptions },
-    { label: 'Transfers', value: totals.transfers, color: COLORS.transfers },
-    { label: 'Accounts', value: totals.accounts, color: COLORS.accounts },
-    { label: buffer >= 0 ? 'Buffer' : 'Shortfall', value: Math.abs(buffer), color: buffer >= 0 ? COLORS.buffer : COLORS.negative },
+  const cards = [
+    { label: 'Income', value: tot.income, color: COLORS.income },
+    { label: 'Budget', value: tot.budget, color: COLORS.budget },
+    { label: 'Subscriptions', value: tot.subs, color: COLORS.subscriptions },
+    { label: 'Transfers', value: tot.xfer, color: COLORS.transfers },
+    { label: 'Accounts', value: tot.acct, color: COLORS.accounts },
+    { label: 'Portfolio', value: tot.port, color: COLORS.portfolio },
+    { label: buf >= 0 ? 'Buffer' : 'Shortfall', value: Math.abs(buf), color: buf >= 0 ? COLORS.buffer : COLORS.negative },
   ];
 
   const tabs = [
-    { key: 'overview', label: 'Overview' },
-    { key: 'accounts', label: 'Accounts' },
-    { key: 'budget', label: 'Budget' },
-    { key: 'transfers', label: 'Transfers' },
-    { key: 'income', label: 'Income' },
-    { key: 'subscriptions', label: 'Subscriptions' },
+    { key: 'overview', label: 'Overview' }, { key: 'accounts', label: 'Accounts' },
+    { key: 'budget', label: 'Budget' }, { key: 'transfers', label: 'Transfers' },
+    { key: 'income', label: 'Income' }, { key: 'subscriptions', label: 'Subscriptions' },
+    { key: 'portfolio', label: 'Portfolio' },
   ];
 
-  let tabContent = null;
+  const sp = (...children) => e('div', { className: 'section-panel' }, ...children);
 
-  if (activeTab === 'overview') {
-    tabContent = e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 } },
-      e('div', { className: 'section-panel' },
-        e(Section, {
-          title: 'Income', color: COLORS.income, items: data.income, sectionKey: 'income', onChange: handleChange,
-          defaultItem: { name: 'New income', amount: 0, source: 'Other' },
-          fields: [
-            { type: 'text', key: 'name', placeholder: 'Source' },
-            { type: 'number', key: 'amount' },
-          ]
-        }),
-        e('div', { style: { height: 16 } }),
-        e(Section, {
-          title: 'Budget', color: COLORS.budget, items: data.budget, sectionKey: 'budget', onChange: handleChange,
-          defaultItem: { name: 'New expense', amount: 0 },
-          fields: [
-            { type: 'text', key: 'name', placeholder: 'Category' },
-            { type: 'number', key: 'amount' },
-          ]
-        })
+  const secProps = (title, color, sectionKey, defaultItem, fields) => ({
+    title, color, items: data[sectionKey], sectionKey, onChange: ch, defaultItem, fields
+  });
+
+  let content;
+  if (tab === 'overview') {
+    content = e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 } },
+      sp(
+        e(Section, { key: 'i', ...secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+          [{ key: 'name', placeholder: 'Source', grow: true }, { key: 'amount', amount: true }]) }),
+        e('div', { key: 's', style: { height: 16 } }),
+        e(Section, { key: 'b', ...secProps('Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+          [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', amount: true }]) })
       ),
-      e('div', { className: 'section-panel' },
-        e(Section, {
-          title: 'Subscriptions', color: COLORS.subscriptions, items: data.subscriptions, sectionKey: 'subscriptions', onChange: handleChange,
-          defaultItem: { name: 'New subscription', amount: 0, cycle: 'Monthly', category: 'Other' },
-          fields: [
-            { type: 'text', key: 'name', placeholder: 'Service' },
-            { type: 'number', key: 'amount' },
-          ]
-        }),
-        e('div', { style: { height: 16 } }),
-        e(Section, {
-          title: 'Transfers', color: COLORS.transfers, items: data.transfers, sectionKey: 'transfers', onChange: handleChange,
-          defaultItem: { name: 'New transfer', amount: 0, to: '', status: 'Scheduled' },
-          fields: [
-            { type: 'text', key: 'name', placeholder: 'Name' },
-            { type: 'number', key: 'amount' },
-          ]
-        })
+      sp(
+        e(Section, { key: 'sb', ...secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+          [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }]) }),
+        e('div', { key: 's2', style: { height: 16 } }),
+        e(Section, { key: 't', ...secProps('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '', status: 'Scheduled' },
+          [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }]) })
       )
     );
-  } else if (activeTab === 'accounts') {
-    tabContent = e('div', { className: 'section-panel' },
-      e(Section, {
-        title: 'Accounts', color: COLORS.accounts, items: data.accounts, sectionKey: 'accounts', onChange: handleChange,
-        defaultItem: { name: 'New account', type: 'Everyday', balance: 0 },
-        fields: [
-          { type: 'text', key: 'name', placeholder: 'Account name' },
-          { type: 'select', key: 'type', options: ACCOUNT_TYPES, style: { width: 130 } },
-          { type: 'number', key: 'balance' },
-        ]
-      })
-    );
-  } else if (activeTab === 'budget') {
-    tabContent = e('div', { className: 'section-panel' },
-      e(Section, {
-        title: 'Monthly Budget', color: COLORS.budget, items: data.budget, sectionKey: 'budget', onChange: handleChange,
-        defaultItem: { name: 'New category', amount: 0 },
-        fields: [
-          { type: 'text', key: 'name', placeholder: 'Category' },
-          { type: 'number', key: 'amount' },
-        ]
-      })
-    );
-  } else if (activeTab === 'transfers') {
-    tabContent = e('div', { className: 'section-panel' },
-      e(Section, {
-        title: 'Planned Transfers', color: COLORS.transfers, items: data.transfers, sectionKey: 'transfers', onChange: handleChange,
-        defaultItem: { name: 'New transfer', amount: 0, to: '', status: 'Scheduled' },
-        fields: [
-          { type: 'text', key: 'name', placeholder: 'Transfer name' },
-          { type: 'text', key: 'to', placeholder: 'To', style: { maxWidth: 120 } },
-          { type: 'number', key: 'amount' },
-          { type: 'select', key: 'status', options: TRANSFER_STATUSES, style: { width: 120 } },
-        ]
-      })
-    );
-  } else if (activeTab === 'income') {
-    tabContent = e('div', { className: 'section-panel' },
-      e(Section, {
-        title: 'Income', color: COLORS.income, items: data.income, sectionKey: 'income', onChange: handleChange,
-        defaultItem: { name: 'New income', amount: 0, source: 'Other' },
-        fields: [
-          { type: 'text', key: 'name', placeholder: 'Name' },
-          { type: 'number', key: 'amount' },
-          { type: 'select', key: 'source', options: INCOME_SOURCES, style: { width: 140 } },
-        ]
-      })
-    );
-  } else if (activeTab === 'subscriptions') {
-    tabContent = e('div', { className: 'section-panel' },
-      e(Section, {
-        title: 'Subscriptions', color: COLORS.subscriptions, items: data.subscriptions, sectionKey: 'subscriptions', onChange: handleChange,
-        defaultItem: { name: 'New subscription', amount: 0, cycle: 'Monthly', category: 'Other' },
-        fields: [
-          { type: 'text', key: 'name', placeholder: 'Service' },
-          { type: 'number', key: 'amount' },
-          { type: 'select', key: 'cycle', options: SUB_CYCLES, style: { width: 110 } },
-          { type: 'select', key: 'category', options: SUB_CATEGORIES, style: { width: 130 } },
-        ]
-      })
-    );
+  } else if (tab === 'accounts') {
+    content = sp(e(Section, secProps('Accounts', COLORS.accounts, 'accounts', { name: '', type: 'Everyday', balance: 0 },
+      [{ key: 'name', placeholder: 'Account name', grow: true }, { key: 'type', options: ACCOUNT_TYPES }, { key: 'balance', amount: true }])));
+  } else if (tab === 'budget') {
+    content = sp(e(Section, secProps('Monthly Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+      [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', amount: true }])));
+  } else if (tab === 'transfers') {
+    content = sp(e(Section, secProps('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '', status: 'Scheduled' },
+      [{ key: 'name', placeholder: 'Transfer name', grow: true }, { key: 'to', placeholder: 'To', width: '120px' }, { key: 'amount', amount: true }, { key: 'status', options: TRANSFER_STATUSES }])));
+  } else if (tab === 'income') {
+    content = sp(e(Section, secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+      [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }, { key: 'source', options: INCOME_SOURCES, width: '140px' }])));
+  } else if (tab === 'subscriptions') {
+    content = sp(e(Section, secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+      [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }, { key: 'cycle', options: SUB_CYCLES, width: '110px' }, { key: 'category', options: SUB_CATEGORIES }])));
+  } else if (tab === 'portfolio') {
+    content = sp(e(Portfolio, { portfolios: data.portfolios || [], onChange: ch }));
   }
 
   return e('div', null,
-    e('div', { className: 'header' },
-      e('h1', null, 'Finance Hub'),
-      e('p', null, 'Your money, visualized.')
-    ),
-
-    e('div', { className: 'summary-grid' },
-      ...summaryCards.map((card, i) =>
-        e('div', { key: i, className: 'summary-card', style: { borderTopColor: card.color } },
-          e('div', { className: 'label' }, card.label),
-          e('div', { className: 'value', style: { color: card.color } }, fmt(card.value))
-        )
-      )
-    ),
-
-    e('div', { className: 'flow-container' }, e(SankeyFlow, { data })),
-
-    e('div', { className: 'tabs' },
-      ...tabs.map(tab =>
-        e('button', {
-          key: tab.key,
-          className: 'tab' + (activeTab === tab.key ? ' active' : ''),
-          onClick: () => setActiveTab(tab.key),
-          style: activeTab === tab.key ? { color: COLORS[tab.key] || '#e2e8f0' } : {}
-        }, tab.label)
-      )
-    ),
-
-    tabContent,
-
+    e('div', { className: 'header' }, e('h1', null, 'Finance Hub'), e('p', null, 'Your money, visualized.')),
+    e('div', { className: 'summary-grid' }, ...cards.map((c, i) =>
+      e('div', { key: i, className: 'summary-card', style: { borderTopColor: c.color } },
+        e('div', { className: 'label' }, c.label),
+        e('div', { className: 'value', style: { color: c.color } }, fmt(c.value)))
+    )),
+    e('div', { className: 'flow-container' }, e(Sankey, { data })),
+    e('div', { className: 'tabs' }, ...tabs.map(t =>
+      e('button', { key: t.key, className: 'tab' + (tab === t.key ? ' active' : ''), onClick: () => setTab(t.key) }, t.label)
+    )),
+    content,
     e('div', { className: 'toolbar' },
       e('button', { onClick: handleImport }, 'Import'),
       e('button', { onClick: handleExport }, 'Export'),
       e('button', { className: 'btn-danger', onClick: handleReset }, 'Reset'),
-      e('button', { className: 'btn-save', onClick: handleSave }, 'Save')
     ),
-
-    lastSaved ? e('div', { className: 'save-indicator' }, 'Auto-saved at ' + lastSaved) : null
+    saved ? e('div', { className: 'save-indicator' }, 'Auto-saved at ' + saved) : null
   );
 }
 
