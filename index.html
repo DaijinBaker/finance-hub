@@ -190,7 +190,7 @@ const DEFAULT_DATA = {
   income: [{ name: "Monthly Salary", amount: 0, source: "Salary" }],
   budget: [{ name: "Rent", amount: 0 }, { name: "Utilities", amount: 0 }, { name: "Groceries", amount: 0 }, { name: "Health", amount: 0 }, { name: "Personal", amount: 0 }, { name: "Dining/Entertainment", amount: 0 }],
   subscriptions: [{ name: "Phone Bill", amount: 0, cycle: "Monthly", category: "Productivity" }],
-  transfers: [{ name: "Savings", amount: 0, to: "AU Savings", status: "Scheduled" }],
+  transfers: [{ name: "Savings", amount: 0, to: "AU Savings" }],
   portfolios: [
     { name: "AU Portfolio", stocks: [{ ticker: "", name: "New Stock", shares: 0, avgCost: 0, currentPrice: 0 }] },
     { name: "NZ Portfolio", stocks: [{ ticker: "", name: "New Stock", shares: 0, avgCost: 0, currentPrice: 0 }] },
@@ -202,8 +202,6 @@ const ACCOUNT_TYPES = ["Everyday", "Savings", "Investment", "Credit Card"];
 const INCOME_SOURCES = ["Salary", "Freelance", "Side Hustle", "Investment Returns", "Refund", "Other"];
 const SUB_CYCLES = ["Monthly", "Annual", "Weekly"];
 const SUB_CATEGORIES = ["Productivity", "Entertainment", "Health", "Finance", "Insurance", "Other"];
-const TRANSFER_STATUSES = ["Scheduled", "Completed", "Paused"];
-
 function load() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const p = JSON.parse(s); return { ...DEFAULT_DATA, ...p }; } } catch(e) {} return DEFAULT_DATA; }
 function save(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
 function arrSum(a, k) { return a.reduce((s, i) => s + (parseFloat(i[k || 'amount']) || 0), 0); }
@@ -212,6 +210,8 @@ function fmtS(n) { const v = isNaN(n) ? 0 : Math.abs(n); return '$' + v.toFixed(
 function stockValue(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.currentPrice) || 0); }
 function stockCost(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.avgCost) || 0); }
 function allPortfolioValue(portfolios) { return (portfolios || []).reduce((s, p) => s + p.stocks.reduce((ss, st) => ss + stockValue(st), 0), 0); }
+function subMonthly(sub) { const amt = parseFloat(sub.amount) || 0; const c = sub.cycle || 'Monthly'; if (c === 'Weekly') return amt * 52 / 12; if (c === 'Annual') return amt / 12; return amt; }
+function subsTotal(subs) { return (subs || []).reduce((s, sub) => s + subMonthly(sub), 0); }
 
 // Drag hook
 function useDrag(items, onReorder) {
@@ -242,8 +242,8 @@ function Amt(props) {
 
 // Section
 function Section(props) {
-  const { title, color, items, fields, sectionKey, onChange, defaultItem } = props;
-  const total = arrSum(items, fields.find(f => f.amount)?.key || 'amount');
+  const { title, color, items, fields, sectionKey, onChange, defaultItem, totalFn, rowInfo } = props;
+  const total = totalFn ? totalFn(items) : arrSum(items, fields.find(f => f.amount)?.key || 'amount');
   const { h, dI, oI } = useDrag(items, (r) => onChange(sectionKey, r));
 
   const upd = (i, k, v) => { const u = [...items]; u[i] = { ...u[i], [k]: v }; onChange(sectionKey, u); };
@@ -257,6 +257,7 @@ function Section(props) {
     ),
     items.map((item, i) => {
       const d = h(i);
+      const info = rowInfo ? rowInfo(item) : null;
       return e('div', {
         key: i, className: 'row' + (dI === i ? ' dragging' : '') + (oI === i ? ' drag-over' : ''),
         onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave,
@@ -272,6 +273,7 @@ function Section(props) {
             style: f.width ? { width: f.width } : {}, value: item[f.key] || '', placeholder: f.placeholder || '',
             onChange: (ev) => upd(i, f.key, ev.target.value) });
         }),
+        info ? e('span', { key: 'info', style: { fontSize: 11, color: '#64748b', fontFamily: "'IBM Plex Mono'", whiteSpace: 'nowrap', flexShrink: 0 } }, info) : null,
         e('button', { className: 'btn-remove', onClick: () => rm(i) }, '\u00d7')
       );
     }),
@@ -282,7 +284,7 @@ function Section(props) {
 // Sankey
 function Sankey(props) {
   const d = props.data;
-  const t = { income: arrSum(d.income, 'amount'), budget: arrSum(d.budget, 'amount'), subs: arrSum(d.subscriptions, 'amount'), xfer: arrSum(d.transfers, 'amount') };
+  const t = { income: arrSum(d.income, 'amount'), budget: arrSum(d.budget, 'amount'), subs: subsTotal(d.subscriptions), xfer: arrSum(d.transfers, 'amount') };
   const out = t.budget + t.subs + t.xfer;
   const buf = t.income - out;
   const cats = [
@@ -469,7 +471,7 @@ function App() {
 
   const tot = useMemo(() => ({
     income: arrSum(data.income, 'amount'), budget: arrSum(data.budget, 'amount'),
-    subs: arrSum(data.subscriptions, 'amount'), xfer: arrSum(data.transfers, 'amount'),
+    subs: subsTotal(data.subscriptions), xfer: arrSum(data.transfers, 'amount'),
     acct: arrSum(data.accounts, 'balance'), port: allPortfolioValue(data.portfolios),
   }), [data]);
 
@@ -511,9 +513,10 @@ function App() {
       ),
       sp(
         e(Section, { key: 'sb', ...secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
-          [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }]) }),
+          [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }]),
+          totalFn: subsTotal, rowInfo: (item) => { const c = item.cycle || 'Monthly'; if (c === 'Monthly') return null; return fmt(subMonthly(item)) + '/mo'; } }),
         e('div', { key: 's2', style: { height: 16 } }),
-        e(Section, { key: 't', ...secProps('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '', status: 'Scheduled' },
+        e(Section, { key: 't', ...secProps('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
           [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }]) })
       )
     );
@@ -524,14 +527,15 @@ function App() {
     content = sp(e(Section, secProps('Monthly Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
       [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', amount: true }])));
   } else if (tab === 'transfers') {
-    content = sp(e(Section, secProps('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '', status: 'Scheduled' },
-      [{ key: 'name', placeholder: 'Transfer name', grow: true }, { key: 'to', placeholder: 'To', width: '120px' }, { key: 'amount', amount: true }, { key: 'status', options: TRANSFER_STATUSES }])));
+    content = sp(e(Section, secProps('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
+      [{ key: 'name', placeholder: 'Transfer name', grow: true }, { key: 'to', placeholder: 'To', width: '120px' }, { key: 'amount', amount: true }])));
   } else if (tab === 'income') {
     content = sp(e(Section, secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
       [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }, { key: 'source', options: INCOME_SOURCES, width: '140px' }])));
   } else if (tab === 'subscriptions') {
-    content = sp(e(Section, secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
-      [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }, { key: 'cycle', options: SUB_CYCLES, width: '110px' }, { key: 'category', options: SUB_CATEGORIES }])));
+    content = sp(e(Section, { ...secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+      [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }, { key: 'cycle', options: SUB_CYCLES, width: '110px' }, { key: 'category', options: SUB_CATEGORIES }]),
+      totalFn: subsTotal, rowInfo: (item) => { const c = item.cycle || 'Monthly'; if (c === 'Monthly') return null; return fmt(subMonthly(item)) + '/mo'; } }));
   } else if (tab === 'portfolio') {
     content = sp(e(Portfolio, { portfolios: data.portfolios || [], onChange: ch }));
   }
