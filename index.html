@@ -28,10 +28,7 @@
     --font-mono: 'IBM Plex Mono', monospace;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--bg-deep); color: var(--text-primary);
-    font-family: var(--font-display); min-height: 100vh;
-  }
+  body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--font-display); min-height: 100vh; }
   body::before {
     content: ''; position: fixed; inset: 0;
     background: radial-gradient(ellipse at 20% 0%, rgba(34,197,94,0.06) 0%, transparent 50%),
@@ -39,7 +36,6 @@
     pointer-events: none;
   }
   .app { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
-
   .header { margin-bottom: 32px; }
   .header h1 {
     font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
@@ -47,8 +43,6 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px;
   }
   .header p { color: var(--text-muted); font-size: 13px; }
-
-  /* Summary cards */
   .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 10px; margin-bottom: 28px; }
   .summary-card {
     background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
@@ -57,8 +51,6 @@
   .summary-card:hover { border-color: var(--border-hover); }
   .summary-card .label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
   .summary-card .value { font-size: 17px; font-weight: 700; font-family: var(--font-mono); }
-
-  /* Flow */
   .flow-container {
     background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
     padding: 24px; margin-bottom: 28px; position: relative; overflow: hidden;
@@ -67,8 +59,6 @@
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   }
-
-  /* Tabs */
   .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 2px; overflow-x: auto; }
   .tab {
     padding: 8px 14px; border: none; background: none; color: var(--text-muted);
@@ -77,16 +67,12 @@
   }
   .tab:hover { color: var(--text-secondary); background: rgba(255,255,255,0.02); }
   .tab.active { color: var(--text-primary); border-bottom-color: currentColor; }
-
-  /* Panels */
   .section-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; animation: fadeIn 0.2s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
   .section-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
   .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .section-total { font-family: var(--font-mono); font-size: 14px; font-weight: 600; }
-
-  /* Rows */
   .row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 2px 4px; border-radius: 6px; transition: background 0.15s; }
   .row.dragging { opacity: 0.35; }
   .row.drag-over { background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
@@ -94,8 +80,6 @@
   .drag-handle:hover { opacity: 0.8; }
   .drag-handle:active { cursor: grabbing; }
   .row-bar { width: 3px; height: 32px; border-radius: 2px; flex-shrink: 0; }
-
-  /* Inputs */
   input, select {
     background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px;
     padding: 7px 10px; color: var(--text-primary); font-size: 13px; font-family: var(--font-mono);
@@ -111,34 +95,22 @@
   .input-grow { flex: 1; min-width: 0; }
   .input-amount { width: 110px; text-align: right; padding-left: 22px; }
   .input-select { width: 130px; }
-
   .amount-cell { position: relative; flex-shrink: 0; }
   .amount-cell .sign { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; font-family: var(--font-mono); pointer-events: none; z-index: 1; }
-
   .btn-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 15px; padding: 2px 6px; line-height: 1; flex-shrink: 0; opacity: 0.3; transition: all 0.2s; }
   .btn-remove:hover { opacity: 1; color: var(--negative); }
   .btn-add { background: none; border: 1px dashed var(--border); border-radius: 6px; padding: 5px 14px; color: var(--text-muted); cursor: pointer; font-size: 12px; margin-top: 8px; font-family: var(--font-display); transition: all 0.2s; }
   .btn-add:hover { border-color: var(--border-hover); color: var(--text-secondary); }
-
-  /* Portfolio */
   .ptabs { display: flex; gap: 6px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
-  .ptab {
-    padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-input);
-    color: var(--text-muted); font-size: 12px; font-family: var(--font-display); font-weight: 500;
-    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
-  }
+  .ptab { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-input); color: var(--text-muted); font-size: 12px; font-family: var(--font-display); font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
   .ptab:hover { border-color: var(--border-hover); color: var(--text-secondary); }
   .ptab.active { border-color: var(--portfolio); color: var(--portfolio); background: rgba(249,115,22,0.1); }
   .ptab .ptab-close { font-size: 14px; opacity: 0.4; transition: opacity 0.2s; }
   .ptab .ptab-close:hover { opacity: 1; color: var(--negative); }
   .ptab-add { padding: 6px 12px; border-radius: 8px; border: 1px dashed var(--border); background: none; color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: var(--font-display); transition: all 0.2s; }
   .ptab-add:hover { border-color: var(--border-hover); color: var(--text-secondary); }
-
   .stock-grid { display: grid; gap: 6px; }
-  .stock-header, .stock-row {
-    display: grid; grid-template-columns: 28px 70px 1fr 70px 85px 85px 90px 75px 28px;
-    gap: 6px; align-items: center; padding: 2px 0;
-  }
+  .stock-header, .stock-row { display: grid; grid-template-columns: 28px 70px 1fr 70px 85px 85px 90px 75px 28px; gap: 6px; align-items: center; padding: 2px 0; }
   .stock-header { padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
   .stock-header span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; }
   .stock-row { border-radius: 6px; transition: background 0.15s; }
@@ -151,21 +123,43 @@
   .gain-pos { color: var(--income); }
   .gain-neg { color: var(--negative); }
   .gain-flat { color: var(--text-muted); }
-
   .port-summary { display: flex; gap: 24px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); flex-wrap: wrap; }
   .port-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
   .port-stat-value { font-size: 16px; font-weight: 600; font-family: var(--font-mono); }
-
-  /* Portfolio name edit */
   .pname-input { background: none; border: none; color: var(--portfolio); font-family: var(--font-display); font-size: 15px; font-weight: 600; outline: none; width: auto; padding: 0; }
   .pname-input:focus { border-bottom: 1px solid var(--portfolio); }
-
-  /* Toolbar */
-  .toolbar { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .toolbar { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
   .toolbar button { padding: 8px 18px; border-radius: 8px; font-size: 12px; font-family: var(--font-display); font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1px solid var(--border); background: var(--bg-input); color: var(--text-secondary); }
   .toolbar button:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
   .toolbar .btn-danger:hover { border-color: var(--negative); color: var(--negative); }
-  .save-indicator { font-size: 11px; color: var(--text-muted); font-style: italic; text-align: right; margin-top: 8px; }
+  .sync-status { font-size: 11px; font-family: var(--font-mono); margin-right: auto; display: flex; align-items: center; gap: 6px; }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .sync-dot.ok { background: var(--income); }
+  .sync-dot.err { background: var(--negative); }
+  .sync-dot.pending { background: var(--budget); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* Setup screen */
+  .setup-screen { display: flex; align-items: center; justify-content: center; min-height: 80vh; }
+  .setup-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 480px; width: 100%; }
+  .setup-box h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .setup-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
+  .setup-box input[type="password"] {
+    width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; color: var(--text-primary); font-size: 14px; font-family: var(--font-mono);
+    outline: none; margin-bottom: 12px; transition: border-color 0.2s;
+  }
+  .setup-box input[type="password"]:focus { border-color: var(--income); }
+  .setup-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--income); color: #0a0f1e; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+  .setup-btn:hover { opacity: 0.9; }
+  .setup-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .setup-error { color: var(--negative); font-size: 12px; margin-top: 8px; }
+  .setup-skip { background: none; border: none; color: var(--text-muted); font-size: 12px; cursor: pointer; margin-top: 12px; font-family: var(--font-display); text-decoration: underline; }
+  .setup-skip:hover { color: var(--text-secondary); }
+  .setup-steps { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+  .setup-steps ol { padding-left: 20px; }
+  .setup-steps li { color: var(--text-secondary); font-size: 12px; margin-bottom: 6px; line-height: 1.5; }
+  .setup-steps code { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono); font-size: 11px; }
 
   @media (max-width: 700px) {
     .stock-header, .stock-row { grid-template-columns: 24px 55px 1fr 55px 70px 70px 75px 60px 24px; gap: 4px; }
@@ -173,6 +167,7 @@
     .summary-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .summary-card { padding: 10px 12px; }
     .summary-card .value { font-size: 14px; }
+    .setup-box { padding: 24px; margin: 0 12px; }
   }
 </style>
 </head>
@@ -184,7 +179,68 @@
 const e = React.createElement;
 const { useState, useMemo, useEffect, useCallback, useRef } = React;
 
-const STORAGE_KEY = 'finance-hub-v3';
+// ===================== GIST SYNC LAYER =====================
+const GIST_FILENAME = 'finance-hub-data.json';
+const TOKEN_KEY = 'fh-gh-token';
+const GIST_ID_KEY = 'fh-gist-id';
+
+const GistSync = {
+  getToken() { try { return localStorage.getItem(TOKEN_KEY); } catch(e) { return null; } },
+  setToken(t) { try { localStorage.setItem(TOKEN_KEY, t); } catch(e) {} },
+  getGistId() { try { return localStorage.getItem(GIST_ID_KEY); } catch(e) { return null; } },
+  setGistId(id) { try { localStorage.setItem(GIST_ID_KEY, id); } catch(e) {} },
+  clearAuth() { try { localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(GIST_ID_KEY); } catch(e) {} },
+
+  async validateToken(token) {
+    const res = await fetch('https://api.github.com/user', { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' } });
+    if (!res.ok) throw new Error('Invalid token');
+    return await res.json();
+  },
+
+  async findExistingGist(token) {
+    const res = await fetch('https://api.github.com/gists?per_page=100', { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' } });
+    if (!res.ok) return null;
+    const gists = await res.json();
+    const match = gists.find(g => g.files && g.files[GIST_FILENAME]);
+    return match ? match.id : null;
+  },
+
+  async createGist(token, data) {
+    const res = await fetch('https://api.github.com/gists', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ description: 'Finance Hub - Data Sync (auto-managed)', public: false, files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } } })
+    });
+    if (!res.ok) throw new Error('Failed to create gist');
+    const gist = await res.json();
+    return gist.id;
+  },
+
+  async pushData(token, gistId, data) {
+    const res = await fetch('https://api.github.com/gists/' + gistId, {
+      method: 'PATCH',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } } })
+    });
+    if (!res.ok) throw new Error('Failed to save to gist');
+    return true;
+  },
+
+  async pullData(token, gistId) {
+    const res = await fetch('https://api.github.com/gists/' + gistId, {
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if (!res.ok) throw new Error('Failed to load gist');
+    const gist = await res.json();
+    const file = gist.files[GIST_FILENAME];
+    if (!file) throw new Error('Data file not found in gist');
+    return JSON.parse(file.content);
+  }
+};
+
+// ===================== DATA / HELPERS =====================
+const LOCAL_KEY = 'finance-hub-v4';
 const DEFAULT_DATA = {
   accounts: [{ name: "AU Everyday", type: "Everyday", balance: 0 }, { name: "AU Savings", type: "Savings", balance: 0 }],
   income: [{ name: "Monthly Salary", amount: 0, source: "Salary" }],
@@ -196,24 +252,24 @@ const DEFAULT_DATA = {
     { name: "NZ Portfolio", stocks: [{ ticker: "", name: "New Stock", shares: 0, avgCost: 0, currentPrice: 0 }] },
   ],
 };
-
 const COLORS = { income: '#22c55e', budget: '#f59e0b', subscriptions: '#a855f7', transfers: '#3b82f6', buffer: '#64748b', negative: '#ef4444', accounts: '#ec4899', portfolio: '#f97316' };
 const ACCOUNT_TYPES = ["Everyday", "Savings", "Investment", "Credit Card"];
 const INCOME_SOURCES = ["Salary", "Freelance", "Side Hustle", "Investment Returns", "Refund", "Other"];
 const SUB_CYCLES = ["Monthly", "Annual", "Weekly"];
 const SUB_CATEGORIES = ["Productivity", "Entertainment", "Health", "Finance", "Insurance", "Other"];
-function load() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const p = JSON.parse(s); return { ...DEFAULT_DATA, ...p }; } } catch(e) {} return DEFAULT_DATA; }
-function save(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
+
+function localLoad() { try { const s = localStorage.getItem(LOCAL_KEY); if (s) return { ...DEFAULT_DATA, ...JSON.parse(s) }; } catch(e) {} return DEFAULT_DATA; }
+function localSave(d) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(d)); } catch(e) {} }
 function arrSum(a, k) { return a.reduce((s, i) => s + (parseFloat(i[k || 'amount']) || 0), 0); }
 function fmt(n) { const v = isNaN(n) ? 0 : Math.abs(n); return '$' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 function fmtS(n) { const v = isNaN(n) ? 0 : Math.abs(n); return '$' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 function stockValue(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.currentPrice) || 0); }
 function stockCost(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.avgCost) || 0); }
-function allPortfolioValue(portfolios) { return (portfolios || []).reduce((s, p) => s + p.stocks.reduce((ss, st) => ss + stockValue(st), 0), 0); }
-function subMonthly(sub) { const amt = parseFloat(sub.amount) || 0; const c = sub.cycle || 'Monthly'; if (c === 'Weekly') return amt * 52 / 12; if (c === 'Annual') return amt / 12; return amt; }
+function allPortfolioValue(p) { return (p || []).reduce((s, pf) => s + pf.stocks.reduce((ss, st) => ss + stockValue(st), 0), 0); }
+function subMonthly(sub) { const a = parseFloat(sub.amount) || 0, c = sub.cycle || 'Monthly'; if (c === 'Weekly') return a * 52 / 12; if (c === 'Annual') return a / 12; return a; }
 function subsTotal(subs) { return (subs || []).reduce((s, sub) => s + subMonthly(sub), 0); }
 
-// Drag hook
+// ===================== DRAG HOOK =====================
 function useDrag(items, onReorder) {
   const from = useRef(null), to = useRef(null);
   const [dI, setDI] = useState(null), [oI, setOI] = useState(null);
@@ -231,7 +287,7 @@ function useDrag(items, onReorder) {
   return { h, dI, oI };
 }
 
-// Amount field
+// ===================== COMPONENTS =====================
 function Amt(props) {
   return e('div', { className: 'amount-cell' },
     e('span', { className: 'sign' }, '$'),
@@ -240,28 +296,22 @@ function Amt(props) {
   );
 }
 
-// Section
 function Section(props) {
   const { title, color, items, fields, sectionKey, onChange, defaultItem, totalFn, rowInfo } = props;
   const total = totalFn ? totalFn(items) : arrSum(items, fields.find(f => f.amount)?.key || 'amount');
   const { h, dI, oI } = useDrag(items, (r) => onChange(sectionKey, r));
-
   const upd = (i, k, v) => { const u = [...items]; u[i] = { ...u[i], [k]: v }; onChange(sectionKey, u); };
   const rm = (i) => onChange(sectionKey, items.filter((_, idx) => idx !== i));
   const add = () => onChange(sectionKey, [...items, { ...defaultItem }]);
-
   return e('div', { style: { marginBottom: 8 } },
     e('div', { className: 'section-header' },
       e('div', { className: 'section-title' }, e('div', { className: 'section-dot', style: { backgroundColor: color } }), title),
       e('div', { className: 'section-total', style: { color } }, fmt(total))
     ),
     items.map((item, i) => {
-      const d = h(i);
-      const info = rowInfo ? rowInfo(item) : null;
-      return e('div', {
-        key: i, className: 'row' + (dI === i ? ' dragging' : '') + (oI === i ? ' drag-over' : ''),
-        onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave,
-      },
+      const d = h(i); const info = rowInfo ? rowInfo(item) : null;
+      return e('div', { key: i, className: 'row' + (dI === i ? ' dragging' : '') + (oI === i ? ' drag-over' : ''),
+        onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave },
         e('span', { className: 'drag-handle', draggable: true, onDragStart: d.onDragStart, onDragEnd: d.onDragEnd }, '\u2847'),
         e('div', { className: 'row-bar', style: { backgroundColor: color } }),
         ...fields.map((f, fi) => {
@@ -281,42 +331,34 @@ function Section(props) {
   );
 }
 
-// Sankey
 function Sankey(props) {
   const d = props.data;
   const t = { income: arrSum(d.income, 'amount'), budget: arrSum(d.budget, 'amount'), subs: subsTotal(d.subscriptions), xfer: arrSum(d.transfers, 'amount') };
-  const out = t.budget + t.subs + t.xfer;
-  const buf = t.income - out;
+  const out = t.budget + t.subs + t.xfer; const buf = t.income - out;
   const cats = [
     { label: 'Budget', total: t.budget, color: COLORS.budget },
     { label: 'Subscriptions', total: t.subs, color: COLORS.subscriptions },
     { label: 'Transfers', total: t.xfer, color: COLORS.transfers },
     { label: buf >= 0 ? 'Buffer' : 'Shortfall', total: Math.abs(buf), color: buf >= 0 ? COLORS.buffer : COLORS.negative },
   ].filter(c => c.total > 0);
-
   if (t.income === 0 && out === 0) return e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#64748b', fontSize: 14 } }, 'Add income and expenses to see the flow');
-
   const W = 700, H = 340, lx = 80, rx = 580, nw = 14, pd = 14, tp = 20;
-  const tot = cats.reduce((s, c) => s + c.total, 0);
-  const aH = H - tp * 2 - (cats.length - 1) * pd;
+  const tot = cats.reduce((s, c) => s + c.total, 0); const aH = H - tp * 2 - (cats.length - 1) * pd;
   let cy = tp;
   const rn = cats.map(c => { const h = Math.max(20, (c.total / tot) * aH); const n = { ...c, y: cy, h }; cy += h + pd; return n; });
   const off = (aH - (cy - pd - tp)) / 2; rn.forEach(n => n.y += off);
   const sx = lx + nw, mx = (sx + rx) / 2;
   let fy = tp;
-
   return e('svg', { viewBox: '0 0 ' + W + ' ' + H, style: { width: '100%', height: 'auto' } },
     e('defs', null, ...rn.map((n, i) =>
       e('linearGradient', { key: i, id: 'g' + i, x1: 0, x2: 1, y1: 0, y2: 0 },
         e('stop', { offset: '0%', stopColor: COLORS.income, stopOpacity: 0.45 }),
         e('stop', { offset: '100%', stopColor: n.color, stopOpacity: 0.45 }))
     )),
-    ...rn.map((n, i) => {
-      const fh = (n.total / tot) * aH; const sfy = fy; fy += fh;
+    ...rn.map((n, i) => { const fh = (n.total / tot) * aH; const sfy = fy; fy += fh;
       return e('path', { key: 'p' + i, fill: 'url(#g' + i + ')',
         d: 'M ' + sx + ' ' + sfy + ' C ' + mx + ' ' + sfy + ',' + mx + ' ' + n.y + ',' + rx + ' ' + n.y +
-           ' L ' + rx + ' ' + (n.y + n.h) + ' C ' + mx + ' ' + (n.y + n.h) + ',' + mx + ' ' + (sfy + fh) + ',' + sx + ' ' + (sfy + fh) + ' Z' });
-    }),
+           ' L ' + rx + ' ' + (n.y + n.h) + ' C ' + mx + ' ' + (n.y + n.h) + ',' + mx + ' ' + (sfy + fh) + ',' + sx + ' ' + (sfy + fh) + ' Z' }); }),
     e('rect', { x: lx, y: tp, width: nw, height: aH, rx: 5, fill: COLORS.income }),
     e('text', { x: lx - 12, y: tp + aH / 2 - 10, textAnchor: 'end', fill: '#e2e8f0', fontSize: 13, fontWeight: 600, fontFamily: "'Outfit'" }, 'Income'),
     e('text', { x: lx - 12, y: tp + aH / 2 + 10, textAnchor: 'end', fill: COLORS.income, fontSize: 12, fontWeight: 600, fontFamily: "'IBM Plex Mono'" }, fmtS(t.income)),
@@ -328,88 +370,42 @@ function Sankey(props) {
   );
 }
 
-// Portfolio
 function Portfolio(props) {
   const { portfolios, onChange } = props;
   const [active, setActive] = useState(0);
   const safeActive = Math.min(active, portfolios.length - 1);
-  const port = portfolios[safeActive];
-  if (!port) return null;
-
+  const port = portfolios[safeActive]; if (!port) return null;
   const { h: dragH, dI, oI } = useDrag(port.stocks, (reordered) => {
-    const updated = [...portfolios]; updated[safeActive] = { ...port, stocks: reordered }; onChange('portfolios', updated);
+    const u = [...portfolios]; u[safeActive] = { ...port, stocks: reordered }; onChange('portfolios', u);
   });
-
-  const updStock = (si, k, v) => {
-    const up = [...portfolios]; const stocks = [...port.stocks]; stocks[si] = { ...stocks[si], [k]: v };
-    up[safeActive] = { ...port, stocks }; onChange('portfolios', up);
-  };
-  const rmStock = (si) => {
-    const up = [...portfolios]; up[safeActive] = { ...port, stocks: port.stocks.filter((_, i) => i !== si) }; onChange('portfolios', up);
-  };
-  const addStock = () => {
-    const up = [...portfolios]; up[safeActive] = { ...port, stocks: [...port.stocks, { ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] }; onChange('portfolios', up);
-  };
-  const renamePort = (newName) => {
-    const up = [...portfolios]; up[safeActive] = { ...port, name: newName }; onChange('portfolios', up);
-  };
-  const addPortfolio = () => {
-    const newP = { name: 'Portfolio ' + (portfolios.length + 1), stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] };
-    onChange('portfolios', [...portfolios, newP]); setActive(portfolios.length);
-  };
-  const removePortfolio = (pi) => {
-    if (portfolios.length <= 1) return;
-    if (!confirm('Remove "' + portfolios[pi].name + '"? This cannot be undone.')) return;
-    const up = portfolios.filter((_, i) => i !== pi);
-    onChange('portfolios', up);
-    if (safeActive >= up.length) setActive(up.length - 1);
-    else if (pi < safeActive) setActive(safeActive - 1);
-  };
-
-  let totalInv = 0, totalVal = 0;
-  port.stocks.forEach(s => { totalInv += stockCost(s); totalVal += stockValue(s); });
-  const totalGL = totalVal - totalInv;
-  const totalGLP = totalInv > 0 ? ((totalGL / totalInv) * 100).toFixed(1) : '0.0';
-
-  let allInv = 0, allVal = 0;
-  portfolios.forEach(p => p.stocks.forEach(s => { allInv += stockCost(s); allVal += stockValue(s); }));
-
+  const updStock = (si, k, v) => { const u = [...portfolios]; const st = [...port.stocks]; st[si] = { ...st[si], [k]: v }; u[safeActive] = { ...port, stocks: st }; onChange('portfolios', u); };
+  const rmStock = (si) => { const u = [...portfolios]; u[safeActive] = { ...port, stocks: port.stocks.filter((_, i) => i !== si) }; onChange('portfolios', u); };
+  const addStock = () => { const u = [...portfolios]; u[safeActive] = { ...port, stocks: [...port.stocks, { ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] }; onChange('portfolios', u); };
+  const renamePort = (n) => { const u = [...portfolios]; u[safeActive] = { ...port, name: n }; onChange('portfolios', u); };
+  const addPort = () => { onChange('portfolios', [...portfolios, { name: 'Portfolio ' + (portfolios.length + 1), stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] }]); setActive(portfolios.length); };
+  const rmPort = (pi) => { if (portfolios.length <= 1) return; if (!confirm('Remove "' + portfolios[pi].name + '"?')) return; const u = portfolios.filter((_, i) => i !== pi); onChange('portfolios', u); if (safeActive >= u.length) setActive(u.length - 1); else if (pi < safeActive) setActive(safeActive - 1); };
+  let tInv = 0, tVal = 0; port.stocks.forEach(s => { tInv += stockCost(s); tVal += stockValue(s); });
+  const tGL = tVal - tInv, tGLP = tInv > 0 ? ((tGL / tInv) * 100).toFixed(1) : '0.0';
+  let aInv = 0, aVal = 0; portfolios.forEach(p => p.stocks.forEach(s => { aInv += stockCost(s); aVal += stockValue(s); }));
   return e('div', null,
-    // Portfolio tabs
     e('div', { className: 'ptabs' },
-      ...portfolios.map((p, pi) =>
-        e('button', { key: pi, className: 'ptab' + (pi === safeActive ? ' active' : ''), onClick: () => setActive(pi) },
-          e('span', null, p.name),
-          portfolios.length > 1 ? e('span', { className: 'ptab-close', onClick: (ev) => { ev.stopPropagation(); removePortfolio(pi); } }, '\u00d7') : null
-        )
-      ),
-      e('button', { className: 'ptab-add', onClick: addPortfolio }, '+ Add Portfolio')
-    ),
-
-    // Active portfolio header
+      ...portfolios.map((p, pi) => e('button', { key: pi, className: 'ptab' + (pi === safeActive ? ' active' : ''), onClick: () => setActive(pi) },
+        e('span', null, p.name), portfolios.length > 1 ? e('span', { className: 'ptab-close', onClick: (ev) => { ev.stopPropagation(); rmPort(pi); } }, '\u00d7') : null)),
+      e('button', { className: 'ptab-add', onClick: addPort }, '+ Add Portfolio')),
     e('div', { className: 'section-header' },
-      e('div', { className: 'section-title' },
-        e('div', { className: 'section-dot', style: { backgroundColor: COLORS.portfolio } }),
-        e('input', { className: 'pname-input', value: port.name, onChange: (ev) => renamePort(ev.target.value) })
-      ),
-      e('div', { className: 'section-total', style: { color: COLORS.portfolio } }, fmt(totalVal))
-    ),
-
-    // Stock table
+      e('div', { className: 'section-title' }, e('div', { className: 'section-dot', style: { backgroundColor: COLORS.portfolio } }),
+        e('input', { className: 'pname-input', value: port.name, onChange: (ev) => renamePort(ev.target.value) })),
+      e('div', { className: 'section-total', style: { color: COLORS.portfolio } }, fmt(tVal))),
     e('div', { className: 'stock-grid' },
-      e('div', { className: 'stock-header' },
-        e('span'), e('span', null, 'Ticker'), e('span', null, 'Name'), e('span', null, 'Shares'),
-        e('span', null, 'Avg Cost'), e('span', null, 'Price'), e('span', null, 'Value'), e('span', null, 'G/L %'), e('span')
-      ),
+      e('div', { className: 'stock-header' }, e('span'), e('span', null, 'Ticker'), e('span', null, 'Name'), e('span', null, 'Shares'),
+        e('span', null, 'Avg Cost'), e('span', null, 'Price'), e('span', null, 'Value'), e('span', null, 'G/L %'), e('span')),
       ...port.stocks.map((st, si) => {
         const val = stockValue(st), cost = stockCost(st), gl = val - cost;
         const glp = cost > 0 ? ((gl / cost) * 100).toFixed(1) : '0.0';
         const cls = gl > 0 ? 'gain-pos' : gl < 0 ? 'gain-neg' : 'gain-flat';
         const d = dragH(si);
-        return e('div', {
-          key: si, className: 'stock-row' + (dI === si ? ' dragging' : '') + (oI === si ? ' drag-over' : ''),
-          onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave,
-        },
+        return e('div', { key: si, className: 'stock-row' + (dI === si ? ' dragging' : '') + (oI === si ? ' drag-over' : ''),
+          onDragOver: d.onDragOver, onDragEnd: d.onDragEnd, onDragLeave: d.onDragLeave },
           e('span', { className: 'drag-handle', draggable: true, onDragStart: d.onDragStart, onDragEnd: d.onDragEnd }, '\u2847'),
           e('input', { className: 'ticker-input', value: st.ticker || '', placeholder: 'TKR', onChange: (ev) => updStock(si, 'ticker', ev.target.value) }),
           e('input', { value: st.name || '', placeholder: 'Stock name', onChange: (ev) => updStock(si, 'name', ev.target.value) }),
@@ -418,65 +414,178 @@ function Portfolio(props) {
           e('input', { type: 'number', value: st.currentPrice || 0, step: '0.01', onChange: (ev) => updStock(si, 'currentPrice', ev.target.value) }),
           e('div', { className: 'computed' }, fmtS(val)),
           e('div', { className: 'computed ' + cls }, (gl >= 0 ? '+' : '') + glp + '%'),
-          e('button', { className: 'btn-remove', onClick: () => rmStock(si) }, '\u00d7')
-        );
-      })
-    ),
+          e('button', { className: 'btn-remove', onClick: () => rmStock(si) }, '\u00d7'));
+      })),
     e('button', { className: 'btn-add', onClick: addStock }, '+ Add Stock'),
-
-    // Summary
     e('div', { className: 'port-summary' },
-      e('div', null,
-        e('div', { className: 'port-stat-label' }, 'This Portfolio'),
-        e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(totalVal)),
-        e('div', { className: 'port-stat-label', style: { marginTop: 2 } },
-          e('span', { className: totalGL >= 0 ? 'gain-pos' : 'gain-neg' },
-            (totalGL >= 0 ? '+' : '-') + fmt(totalGL) + ' (' + (totalGL >= 0 ? '+' : '') + totalGLP + '%)'
-          )
+      e('div', null, e('div', { className: 'port-stat-label' }, 'This Portfolio'), e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(tVal)),
+        e('div', { className: 'port-stat-label', style: { marginTop: 2 } }, e('span', { className: tGL >= 0 ? 'gain-pos' : 'gain-neg' }, (tGL >= 0 ? '+' : '-') + fmt(tGL) + ' (' + (tGL >= 0 ? '+' : '') + tGLP + '%)'))),
+      e('div', null, e('div', { className: 'port-stat-label' }, 'Total Invested'), e('div', { className: 'port-stat-value', style: { color: '#e2e8f0' } }, fmt(tInv))),
+      e('div', null, e('div', { className: 'port-stat-label' }, 'All Portfolios'), e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(aVal)),
+        e('div', { className: 'port-stat-label', style: { marginTop: 2 } }, e('span', { className: (aVal - aInv) >= 0 ? 'gain-pos' : 'gain-neg' }, ((aVal - aInv) >= 0 ? '+' : '-') + fmt(aVal - aInv)))))
+  );
+}
+
+// ===================== SETUP SCREEN =====================
+function SetupScreen(props) {
+  const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleConnect = async () => {
+    if (!token.trim()) return;
+    setLoading(true); setError('');
+    try {
+      const user = await GistSync.validateToken(token.trim());
+      GistSync.setToken(token.trim());
+      // Check for existing gist
+      const existingId = await GistSync.findExistingGist(token.trim());
+      if (existingId) {
+        GistSync.setGistId(existingId);
+        const cloudData = await GistSync.pullData(token.trim(), existingId);
+        props.onConnect({ ...DEFAULT_DATA, ...cloudData }, user.login);
+      } else {
+        // Create new gist with default data
+        const newId = await GistSync.createGist(token.trim(), DEFAULT_DATA);
+        GistSync.setGistId(newId);
+        props.onConnect(DEFAULT_DATA, user.login);
+      }
+    } catch(err) {
+      setError(err.message || 'Connection failed. Check your token and try again.');
+    }
+    setLoading(false);
+  };
+
+  return e('div', { className: 'setup-screen' },
+    e('div', { className: 'setup-box' },
+      e('h2', null, 'Connect to GitHub'),
+      e('p', null, 'Your data syncs across all devices via a private GitHub Gist. No one can see it but you.'),
+      e('div', { className: 'setup-steps' },
+        e('ol', null,
+          e('li', null, 'Go to ', e('a', { href: 'https://github.com/settings/tokens?type=beta', target: '_blank', style: { color: COLORS.income } }, 'GitHub Token Settings')),
+          e('li', null, 'Click ', e('code', null, 'Generate new token')),
+          e('li', null, 'Name it ', e('code', null, 'finance-hub-sync')),
+          e('li', null, 'Under ', e('code', null, 'Account permissions'), ', set ', e('code', null, 'Gists'), ' to ', e('code', null, 'Read and write')),
+          e('li', null, 'Generate and paste the token below')
         )
       ),
-      e('div', null,
-        e('div', { className: 'port-stat-label' }, 'Total Invested (this)'),
-        e('div', { className: 'port-stat-value', style: { color: '#e2e8f0' } }, fmt(totalInv))
-      ),
-      e('div', null,
-        e('div', { className: 'port-stat-label' }, 'All Portfolios'),
-        e('div', { className: 'port-stat-value', style: { color: COLORS.portfolio } }, fmt(allVal)),
-        e('div', { className: 'port-stat-label', style: { marginTop: 2 } },
-          e('span', { className: (allVal - allInv) >= 0 ? 'gain-pos' : 'gain-neg' },
-            ((allVal - allInv) >= 0 ? '+' : '-') + fmt(allVal - allInv))
-        )
-      )
+      e('input', { type: 'password', placeholder: 'ghp_xxxxxxxxxxxxxxxxxxxx', value: token,
+        onChange: (ev) => setToken(ev.target.value),
+        onKeyDown: (ev) => { if (ev.key === 'Enter') handleConnect(); }
+      }),
+      e('button', { className: 'setup-btn', onClick: handleConnect, disabled: loading || !token.trim() },
+        loading ? 'Connecting...' : 'Connect'),
+      error ? e('div', { className: 'setup-error' }, error) : null,
+      e('button', { className: 'setup-skip', onClick: () => props.onSkip() }, 'Skip for now (data stays on this device only)')
     )
   );
 }
 
-// App
+// ===================== MAIN APP =====================
 function App() {
-  const [data, setData] = useState(load);
+  const [phase, setPhase] = useState('loading'); // loading, setup, app
+  const [data, setData] = useState(DEFAULT_DATA);
   const [tab, setTab] = useState('overview');
-  const [saved, setSaved] = useState(null);
+  const [syncState, setSyncState] = useState({ status: 'none', msg: '', user: '' }); // none, ok, error, syncing
+  const saveTimer = useRef(null);
 
-  // Ensure portfolios exist (migration from v2)
+  // Init: check for existing token
   useEffect(() => {
-    if (!data.portfolios) setData(d => ({ ...d, portfolios: DEFAULT_DATA.portfolios }));
+    const token = GistSync.getToken();
+    const gistId = GistSync.getGistId();
+    if (token && gistId) {
+      setSyncState({ status: 'syncing', msg: 'Loading...', user: '' });
+      (async () => {
+        try {
+          const user = await GistSync.validateToken(token);
+          const cloudData = await GistSync.pullData(token, gistId);
+          const merged = { ...DEFAULT_DATA, ...cloudData };
+          setData(merged);
+          localSave(merged);
+          setSyncState({ status: 'ok', msg: 'Synced', user: user.login });
+          setPhase('app');
+        } catch(err) {
+          // Token expired or gist deleted - fall back to local
+          const local = localLoad();
+          setData(local);
+          setSyncState({ status: 'error', msg: 'Sync failed, using local data', user: '' });
+          setPhase('app');
+        }
+      })();
+    } else {
+      // No token - check for local data
+      const local = localLoad();
+      const hasLocal = localStorage.getItem(LOCAL_KEY);
+      if (hasLocal) {
+        setData(local);
+        setPhase('app');
+      } else {
+        setPhase('setup');
+      }
+    }
   }, []);
 
-  const ch = useCallback((k, v) => setData(d => ({ ...d, [k]: v })), []);
-  useEffect(() => { const t = setTimeout(() => { save(data); setSaved(new Date().toLocaleTimeString()); }, 800); return () => clearTimeout(t); }, [data]);
+  const syncToCloud = useCallback(async (newData) => {
+    const token = GistSync.getToken();
+    const gistId = GistSync.getGistId();
+    if (!token || !gistId) return;
+    setSyncState(prev => ({ ...prev, status: 'syncing', msg: 'Saving...' }));
+    try {
+      await GistSync.pushData(token, gistId, newData);
+      setSyncState(prev => ({ ...prev, status: 'ok', msg: 'Synced at ' + new Date().toLocaleTimeString() }));
+    } catch(err) {
+      setSyncState(prev => ({ ...prev, status: 'error', msg: 'Sync failed' }));
+    }
+  }, []);
+
+  const ch = useCallback((k, v) => {
+    setData(d => {
+      const newData = { ...d, [k]: v };
+      localSave(newData);
+      // Debounced cloud sync
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(() => syncToCloud(newData), 1500);
+      return newData;
+    });
+  }, [syncToCloud]);
 
   const handleExport = () => { const b = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = 'finance-hub.json'; a.click(); URL.revokeObjectURL(u); };
-  const handleImport = () => { const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json'; inp.onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = (re) => { try { const d = JSON.parse(re.target.result); setData({ ...DEFAULT_DATA, ...d }); save({ ...DEFAULT_DATA, ...d }); setSaved(new Date().toLocaleTimeString()); } catch(e) { alert('Invalid file.'); } }; r.readAsText(f); }; inp.click(); };
-  const handleReset = () => { if (confirm('Reset all data? This cannot be undone.')) { setData(DEFAULT_DATA); save(DEFAULT_DATA); setSaved(null); } };
+  const handleImport = () => {
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json';
+    inp.onchange = (ev) => { const f = ev.target.files[0]; if (!f) return; const r = new FileReader();
+      r.onload = (re) => { try { const d = JSON.parse(re.target.result); const merged = { ...DEFAULT_DATA, ...d }; setData(merged); localSave(merged); syncToCloud(merged); } catch(e) { alert('Invalid file.'); } };
+      r.readAsText(f); };
+    inp.click();
+  };
+  const handleReset = () => { if (confirm('Reset all data? This cannot be undone.')) { setData(DEFAULT_DATA); localSave(DEFAULT_DATA); syncToCloud(DEFAULT_DATA); } };
+  const handleDisconnect = () => { if (confirm('Disconnect GitHub sync? Your data stays on this device but will no longer sync to the cloud.')) { GistSync.clearAuth(); setSyncState({ status: 'none', msg: '', user: '' }); } };
+  const handleReconnect = () => { setPhase('setup'); };
+  const handleForceSync = async () => {
+    const token = GistSync.getToken(); const gistId = GistSync.getGistId();
+    if (!token || !gistId) return;
+    setSyncState(prev => ({ ...prev, status: 'syncing', msg: 'Pulling...' }));
+    try {
+      const cloudData = await GistSync.pullData(token, gistId);
+      const merged = { ...DEFAULT_DATA, ...cloudData };
+      setData(merged); localSave(merged);
+      setSyncState(prev => ({ ...prev, status: 'ok', msg: 'Pulled at ' + new Date().toLocaleTimeString() }));
+    } catch(err) { setSyncState(prev => ({ ...prev, status: 'error', msg: 'Pull failed' })); }
+  };
 
+  // Setup handlers
+  const onSetupConnect = (newData, username) => { setData(newData); localSave(newData); setSyncState({ status: 'ok', msg: 'Connected', user: username }); setPhase('app'); };
+  const onSetupSkip = () => { setData(localLoad()); setPhase('app'); };
+
+  if (phase === 'loading') return e('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#64748b' } }, 'Loading...');
+  if (phase === 'setup') return e(SetupScreen, { onConnect: onSetupConnect, onSkip: onSetupSkip });
+
+  // Main app
   const tot = useMemo(() => ({
     income: arrSum(data.income, 'amount'), budget: arrSum(data.budget, 'amount'),
     subs: subsTotal(data.subscriptions), xfer: arrSum(data.transfers, 'amount'),
     acct: arrSum(data.accounts, 'balance'), port: allPortfolioValue(data.portfolios),
   }), [data]);
-
-  const out = tot.budget + tot.subs + tot.xfer;
-  const buf = tot.income - out;
+  const out = tot.budget + tot.subs + tot.xfer; const buf = tot.income - out;
 
   const cards = [
     { label: 'Income', value: tot.income, color: COLORS.income },
@@ -487,77 +596,77 @@ function App() {
     { label: 'Portfolio', value: tot.port, color: COLORS.portfolio },
     { label: buf >= 0 ? 'Buffer' : 'Shortfall', value: Math.abs(buf), color: buf >= 0 ? COLORS.buffer : COLORS.negative },
   ];
-
   const tabs = [
     { key: 'overview', label: 'Overview' }, { key: 'accounts', label: 'Accounts' },
     { key: 'budget', label: 'Budget' }, { key: 'transfers', label: 'Transfers' },
     { key: 'income', label: 'Income' }, { key: 'subscriptions', label: 'Subscriptions' },
     { key: 'portfolio', label: 'Portfolio' },
   ];
-
-  const sp = (...children) => e('div', { className: 'section-panel' }, ...children);
-
-  const secProps = (title, color, sectionKey, defaultItem, fields) => ({
-    title, color, items: data[sectionKey], sectionKey, onChange: ch, defaultItem, fields
-  });
+  const sp = (...c) => e('div', { className: 'section-panel' }, ...c);
+  const secP = (title, color, sk, def, fields) => ({ title, color, items: data[sk], sectionKey: sk, onChange: ch, defaultItem: def, fields });
 
   let content;
   if (tab === 'overview') {
     content = e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 } },
       sp(
-        e(Section, { key: 'i', ...secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+        e(Section, { key: 'i', ...secP('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
           [{ key: 'name', placeholder: 'Source', grow: true }, { key: 'amount', amount: true }]) }),
         e('div', { key: 's', style: { height: 16 } }),
-        e(Section, { key: 'b', ...secProps('Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+        e(Section, { key: 'b', ...secP('Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
           [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', amount: true }]) })
       ),
       sp(
-        e(Section, { key: 'sb', ...secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+        e(Section, { key: 'sb', ...secP('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
           [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }]),
           totalFn: subsTotal, rowInfo: (item) => { const c = item.cycle || 'Monthly'; if (c === 'Monthly') return null; return fmt(subMonthly(item)) + '/mo'; } }),
         e('div', { key: 's2', style: { height: 16 } }),
-        e(Section, { key: 't', ...secProps('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
+        e(Section, { key: 't', ...secP('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
           [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }]) })
       )
     );
   } else if (tab === 'accounts') {
-    content = sp(e(Section, secProps('Accounts', COLORS.accounts, 'accounts', { name: '', type: 'Everyday', balance: 0 },
+    content = sp(e(Section, secP('Accounts', COLORS.accounts, 'accounts', { name: '', type: 'Everyday', balance: 0 },
       [{ key: 'name', placeholder: 'Account name', grow: true }, { key: 'type', options: ACCOUNT_TYPES }, { key: 'balance', amount: true }])));
   } else if (tab === 'budget') {
-    content = sp(e(Section, secProps('Monthly Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+    content = sp(e(Section, secP('Monthly Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
       [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', amount: true }])));
   } else if (tab === 'transfers') {
-    content = sp(e(Section, secProps('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
+    content = sp(e(Section, secP('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
       [{ key: 'name', placeholder: 'Transfer name', grow: true }, { key: 'to', placeholder: 'To', width: '120px' }, { key: 'amount', amount: true }])));
   } else if (tab === 'income') {
-    content = sp(e(Section, secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+    content = sp(e(Section, secP('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
       [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', amount: true }, { key: 'source', options: INCOME_SOURCES, width: '140px' }])));
   } else if (tab === 'subscriptions') {
-    content = sp(e(Section, { ...secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+    content = sp(e(Section, { ...secP('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
       [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', amount: true }, { key: 'cycle', options: SUB_CYCLES, width: '110px' }, { key: 'category', options: SUB_CATEGORIES }]),
       totalFn: subsTotal, rowInfo: (item) => { const c = item.cycle || 'Monthly'; if (c === 'Monthly') return null; return fmt(subMonthly(item)) + '/mo'; } }));
   } else if (tab === 'portfolio') {
     content = sp(e(Portfolio, { portfolios: data.portfolios || [], onChange: ch }));
   }
 
+  const hasSyncToken = !!GistSync.getToken();
+  const syncDotClass = syncState.status === 'ok' ? 'ok' : syncState.status === 'error' ? 'err' : syncState.status === 'syncing' ? 'pending' : '';
+
   return e('div', null,
     e('div', { className: 'header' }, e('h1', null, 'Finance Hub'), e('p', null, 'Your money, visualized.')),
     e('div', { className: 'summary-grid' }, ...cards.map((c, i) =>
       e('div', { key: i, className: 'summary-card', style: { borderTopColor: c.color } },
-        e('div', { className: 'label' }, c.label),
-        e('div', { className: 'value', style: { color: c.color } }, fmt(c.value)))
-    )),
+        e('div', { className: 'label' }, c.label), e('div', { className: 'value', style: { color: c.color } }, fmt(c.value))))),
     e('div', { className: 'flow-container' }, e(Sankey, { data })),
     e('div', { className: 'tabs' }, ...tabs.map(t =>
-      e('button', { key: t.key, className: 'tab' + (tab === t.key ? ' active' : ''), onClick: () => setTab(t.key) }, t.label)
-    )),
+      e('button', { key: t.key, className: 'tab' + (tab === t.key ? ' active' : ''), onClick: () => setTab(t.key) }, t.label))),
     content,
     e('div', { className: 'toolbar' },
+      e('div', { className: 'sync-status' },
+        syncDotClass ? e('div', { className: 'sync-dot ' + syncDotClass }) : null,
+        e('span', { style: { color: syncState.status === 'error' ? COLORS.negative : '#64748b' } },
+          hasSyncToken ? (syncState.user ? syncState.user + ' \u00b7 ' : '') + syncState.msg : 'Local only')),
+      hasSyncToken ? e('button', { onClick: handleForceSync, title: 'Pull latest from cloud' }, 'Pull') : null,
+      hasSyncToken ? e('button', { onClick: handleDisconnect }, 'Disconnect') : e('button', { onClick: handleReconnect }, 'Connect GitHub'),
       e('button', { onClick: handleImport }, 'Import'),
       e('button', { onClick: handleExport }, 'Export'),
-      e('button', { className: 'btn-danger', onClick: handleReset }, 'Reset'),
-    ),
-    saved ? e('div', { className: 'save-indicator' }, 'Auto-saved at ' + saved) : null
+      e('button', { className: 'btn-danger', onClick: handleReset }, 'Reset')
+    )
   );
 }
 
