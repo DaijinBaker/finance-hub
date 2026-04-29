@@ -12,88 +12,105 @@ body{background:var(--bg);color:var(--t1);font-family:var(--fd);min-height:100vh
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(34,197,94,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(59,130,246,.06) 0%,transparent 50%);pointer-events:none}
 .app{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:32px 20px 60px}
 h1{font-size:28px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(135deg,var(--t1),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.sub{color:var(--t3);font-size:13px;margin-bottom:32px}
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:28px}
-.sc{background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:14px 16px;border-top:3px solid var(--brd);transition:border-color .2s}
-.sc:hover{border-color:var(--brdh)}
-.sc .lb{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.sc .vl{font-size:17px;font-weight:700;font-family:var(--fm)}
-.fc{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:24px;margin-bottom:28px;position:relative;overflow:hidden}
-.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
+.subtitle{color:var(--t3);font-size:13px;margin-bottom:32px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:28px}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:14px 16px;border-top:3px solid var(--brd);transition:border-color .2s}
+.card:hover{border-color:var(--brdh)}
+.card-label{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.card-value{font-size:17px;font-weight:700;font-family:var(--fm)}
+.flow-box{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:24px;margin-bottom:28px;position:relative;overflow:hidden}
+.flow-box::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
 .tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--brd);padding-bottom:2px;overflow-x:auto}
 .tab{padding:8px 14px;border:none;background:none;color:var(--t3);font-family:var(--fd);font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;border-radius:6px 6px 0 0}
 .tab:hover{color:var(--t2);background:rgba(255,255,255,.02)}
-.tab.on{color:var(--t1);border-bottom-color:currentColor}
-.sp{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:24px;margin-bottom:16px}
-.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.st{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
-.sd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.stot{font-family:var(--fm);font-size:14px;font-weight:600}
+.tab.active{color:var(--t1);border-bottom-color:currentColor}
+.panel{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:24px;margin-bottom:16px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sec-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.sec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sec-total{font-family:var(--fm);font-size:14px;font-weight:600}
 .row{display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:2px 4px;border-radius:6px;transition:background .15s}
-.row.dg{opacity:.35}.row.do{background:rgba(255,255,255,.05)}
-.dh{cursor:grab;color:var(--t3);font-size:13px;flex-shrink:0;user-select:none;opacity:.3;transition:opacity .2s;padding:0 2px}
-.dh:hover{opacity:.8}.dh:active{cursor:grabbing}
-.rb{width:3px;height:32px;border-radius:2px;flex-shrink:0}
+.row.dragging{opacity:.35}
+.row.dragover{background:rgba(255,255,255,.05)}
+.grip{cursor:grab;color:var(--t3);font-size:13px;flex-shrink:0;user-select:none;opacity:.3;transition:opacity .2s;padding:0 2px}
+.grip:hover{opacity:.8}
+.grip:active{cursor:grabbing}
+.bar{width:3px;height:32px;border-radius:2px;flex-shrink:0}
 input,select{background:var(--inp);border:1px solid var(--brd);border-radius:6px;padding:7px 10px;color:var(--t1);font-size:13px;font-family:var(--fm);outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:var(--brdh)}
 select{font-family:var(--fd);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M3 5l3 3 3-3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px}
 select option{background:#1e293b;color:var(--t1)}
-.ig{flex:1;min-width:0}.ia{width:110px;text-align:right;padding-left:22px}.is{width:130px}
-.ac{position:relative;flex-shrink:0}
-.ac .sg2{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px;font-family:var(--fm);pointer-events:none;z-index:1}
-.br{background:none;border:none;color:var(--t3);cursor:pointer;font-size:15px;padding:2px 6px;line-height:1;flex-shrink:0;opacity:.3;transition:all .2s}
-.br:hover{opacity:1;color:var(--neg)}
-.ba{background:none;border:1px dashed var(--brd);border-radius:6px;padding:5px 14px;color:var(--t3);cursor:pointer;font-size:12px;margin-top:8px;font-family:var(--fd);transition:all .2s}
-.ba:hover{border-color:var(--brdh);color:var(--t2)}
-.pt{display:flex;gap:6px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
-.ptb{padding:6px 14px;border-radius:8px;border:1px solid var(--brd);background:var(--inp);color:var(--t3);font-size:12px;font-family:var(--fd);font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
-.ptb:hover{border-color:var(--brdh);color:var(--t2)}
-.ptb.on{border-color:var(--prt);color:var(--prt);background:rgba(249,115,22,.1)}
-.ptc{font-size:14px;opacity:.4;transition:opacity .2s}
-.ptc:hover{opacity:1;color:var(--neg)}
-.pta{padding:6px 12px;border-radius:8px;border:1px dashed var(--brd);background:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fd);transition:all .2s}
-.pta:hover{border-color:var(--brdh);color:var(--t2)}
-.skg{display:grid;gap:6px}
-.skh,.skr{display:grid;grid-template-columns:28px 70px 1fr 70px 85px 85px 90px 75px 28px;gap:6px;align-items:center;padding:2px 0}
-.skh{padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--brd)}
-.skh span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);font-weight:600}
-.skr{border-radius:6px;transition:background .15s}
-.skr.dg{opacity:.35}.skr.do{background:rgba(255,255,255,.05)}
-.skr input{width:100%;font-size:12px;padding:6px 8px}
-.skr input.tk{font-weight:600;text-transform:uppercase}
-.skr input[type="number"]{text-align:right}
-.cp{font-family:var(--fm);font-size:12px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,.02);text-align:right;white-space:nowrap;overflow:hidden}
-.gp{color:var(--inc)}.gn{color:var(--neg)}.gz{color:var(--t3)}
-.ps{display:flex;gap:24px;margin-top:16px;padding-top:12px;border-top:1px solid var(--brd);flex-wrap:wrap}
-.psl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);font-weight:600;margin-bottom:2px}
-.psv{font-size:16px;font-weight:600;font-family:var(--fm)}
-.pni{background:none;border:none;color:var(--prt);font-family:var(--fd);font-size:15px;font-weight:600;outline:none;width:auto;padding:0}
-.pni:focus{border-bottom:1px solid var(--prt)}
-.tb{display:flex;gap:8px;justify-content:flex-end;margin-top:24px;padding-top:16px;border-top:1px solid var(--brd);flex-wrap:wrap;align-items:center}
-.tb button{padding:8px 18px;border-radius:8px;font-size:12px;font-family:var(--fd);font-weight:500;cursor:pointer;transition:all .2s;border:1px solid var(--brd);background:var(--inp);color:var(--t2)}
-.tb button:hover{background:rgba(255,255,255,.08);color:var(--t1)}
-.tb .bd:hover{border-color:var(--neg);color:var(--neg)}
-.ss{font-size:11px;font-family:var(--fm);margin-right:auto;display:flex;align-items:center;gap:6px}
-.ssd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.ssd.ok{background:var(--inc)}.ssd.er{background:var(--neg)}.ssd.pn{background:var(--bud);animation:pu 1s infinite}
-@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
-.su{display:flex;align-items:center;justify-content:center;min-height:80vh}
-.sb{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:40px;max-width:480px;width:100%}
-.sb h2{font-size:22px;font-weight:700;margin-bottom:8px}
-.sb p{color:var(--t3);font-size:13px;margin-bottom:20px;line-height:1.6}
-.sb input[type="password"]{width:100%;background:var(--inp);border:1px solid var(--brd);border-radius:8px;padding:12px 16px;color:var(--t1);font-size:14px;font-family:var(--fm);outline:none;margin-bottom:12px}
-.sb input[type="password"]:focus{border-color:var(--inc)}
-.sbn{width:100%;padding:12px;border-radius:8px;border:none;background:var(--inc);color:#0a0f1e;font-family:var(--fd);font-size:14px;font-weight:600;cursor:pointer}
-.sbn:disabled{opacity:.4;cursor:not-allowed}
-.ser{color:var(--neg);font-size:12px;margin-top:8px}
-.ssk{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;margin-top:12px;font-family:var(--fd);text-decoration:underline}
-.ssk:hover{color:var(--t2)}
-.sst{background:rgba(255,255,255,.02);border-radius:8px;padding:16px;margin-bottom:20px}
-.sst ol{padding-left:20px}
-.sst li{color:var(--t2);font-size:12px;margin-bottom:6px;line-height:1.5}
-.sst code{background:rgba(255,255,255,.08);padding:1px 5px;border-radius:3px;font-family:var(--fm);font-size:11px}
-.gg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-@media(max-width:700px){.skh,.skr{grid-template-columns:24px 55px 1fr 55px 70px 70px 75px 60px 24px;gap:4px}.skr input,.cp{font-size:11px;padding:5px 6px}.sg{grid-template-columns:repeat(3,1fr);gap:6px}.sc{padding:10px 12px}.sc .vl{font-size:14px}.sb{padding:24px;margin:0 12px}}
+.grow{flex:1;min-width:0}
+.amt-input{width:110px;text-align:right;padding-left:22px}
+.sel-input{width:130px}
+.amt-wrap{position:relative;flex-shrink:0}
+.amt-sign{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px;font-family:var(--fm);pointer-events:none;z-index:1}
+.btn-rm{background:none;border:none;color:var(--t3);cursor:pointer;font-size:15px;padding:2px 6px;line-height:1;flex-shrink:0;opacity:.3;transition:all .2s}
+.btn-rm:hover{opacity:1;color:var(--neg)}
+.btn-add{background:none;border:1px dashed var(--brd);border-radius:6px;padding:5px 14px;color:var(--t3);cursor:pointer;font-size:12px;margin-top:8px;font-family:var(--fd);transition:all .2s}
+.btn-add:hover{border-color:var(--brdh);color:var(--t2)}
+.p-tabs{display:flex;gap:6px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
+.p-tab{padding:6px 14px;border-radius:8px;border:1px solid var(--brd);background:var(--inp);color:var(--t3);font-size:12px;font-family:var(--fd);font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.p-tab:hover{border-color:var(--brdh);color:var(--t2)}
+.p-tab.active{border-color:var(--prt);color:var(--prt);background:rgba(249,115,22,.1)}
+.p-tab-x{font-size:14px;opacity:.4;transition:opacity .2s}
+.p-tab-x:hover{opacity:1;color:var(--neg)}
+.p-tab-add{padding:6px 12px;border-radius:8px;border:1px dashed var(--brd);background:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fd);transition:all .2s}
+.p-tab-add:hover{border-color:var(--brdh);color:var(--t2)}
+.stock-head,.stock-row{display:grid;grid-template-columns:28px 70px 1fr 70px 85px 85px 90px 75px 28px;gap:6px;align-items:center;padding:2px 0}
+.stock-head{padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--brd)}
+.stock-head span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);font-weight:600}
+.stock-row{border-radius:6px;transition:background .15s}
+.stock-row.dragging{opacity:.35}
+.stock-row.dragover{background:rgba(255,255,255,.05)}
+.stock-row input{width:100%;font-size:12px;padding:6px 8px}
+.stock-row input.ticker{font-weight:600;text-transform:uppercase}
+.stock-row input[type="number"]{text-align:right}
+.computed{font-family:var(--fm);font-size:12px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,.02);text-align:right;white-space:nowrap;overflow:hidden}
+.pos{color:var(--inc)}
+.neg{color:var(--neg)}
+.flat{color:var(--t3)}
+.port-summary{display:flex;gap:24px;margin-top:16px;padding-top:12px;border-top:1px solid var(--brd);flex-wrap:wrap}
+.ps-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);font-weight:600;margin-bottom:2px}
+.ps-value{font-size:16px;font-weight:600;font-family:var(--fm)}
+.port-name{background:none;border:none;color:var(--prt);font-family:var(--fd);font-size:15px;font-weight:600;outline:none;width:auto;padding:0}
+.port-name:focus{border-bottom:1px solid var(--prt)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end;margin-top:24px;padding-top:16px;border-top:1px solid var(--brd);flex-wrap:wrap;align-items:center}
+.toolbar button{padding:8px 18px;border-radius:8px;font-size:12px;font-family:var(--fd);font-weight:500;cursor:pointer;transition:all .2s;border:1px solid var(--brd);background:var(--inp);color:var(--t2)}
+.toolbar button:hover{background:rgba(255,255,255,.08);color:var(--t1)}
+.toolbar .danger:hover{border-color:var(--neg);color:var(--neg)}
+.sync-bar{font-size:11px;font-family:var(--fm);margin-right:auto;display:flex;align-items:center;gap:6px}
+.sync-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sync-dot.ok{background:var(--inc)}
+.sync-dot.err{background:var(--neg)}
+.sync-dot.busy{background:var(--bud);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.setup-wrap{display:flex;align-items:center;justify-content:center;min-height:80vh}
+.setup-box{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:40px;max-width:480px;width:100%}
+.setup-box h2{font-size:22px;font-weight:700;margin-bottom:8px}
+.setup-box>p{color:var(--t3);font-size:13px;margin-bottom:20px;line-height:1.6}
+.setup-box input[type="password"]{width:100%;background:var(--inp);border:1px solid var(--brd);border-radius:8px;padding:12px 16px;color:var(--t1);font-size:14px;font-family:var(--fm);outline:none;margin-bottom:12px}
+.setup-box input[type="password"]:focus{border-color:var(--inc)}
+.setup-go{width:100%;padding:12px;border-radius:8px;border:none;background:var(--inc);color:#0a0f1e;font-family:var(--fd);font-size:14px;font-weight:600;cursor:pointer}
+.setup-go:disabled{opacity:.4;cursor:not-allowed}
+.setup-err{color:var(--neg);font-size:12px;margin-top:8px}
+.setup-skip{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;margin-top:12px;font-family:var(--fd);text-decoration:underline}
+.setup-skip:hover{color:var(--t2)}
+.setup-steps{background:rgba(255,255,255,.02);border-radius:8px;padding:16px;margin-bottom:20px}
+.setup-steps ol{padding-left:20px}
+.setup-steps li{color:var(--t2);font-size:12px;margin-bottom:6px;line-height:1.5}
+.setup-steps code{background:rgba(255,255,255,.08);padding:1px 5px;border-radius:3px;font-family:var(--fm);font-size:11px}
+.setup-steps a{color:var(--inc)}
+.warn-box{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:var(--t2);line-height:1.5}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+@media(max-width:700px){
+  .stock-head,.stock-row{grid-template-columns:24px 55px 1fr 55px 70px 70px 75px 60px 24px;gap:4px}
+  .stock-row input,.computed{font-size:11px;padding:5px 6px}
+  .cards{grid-template-columns:repeat(3,1fr);gap:6px}
+  .card{padding:10px 12px}
+  .card-value{font-size:14px}
+  .setup-box{padding:24px;margin:0 12px}
+}
 </style>
 </head>
 <body>
@@ -101,245 +118,945 @@ select option{background:#1e293b;color:var(--t1)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
-const e = React.createElement;
-const {useState,useEffect,useCallback,useRef,useReducer} = React;
+"use strict";
+var e = React.createElement;
+var useState = React.useState;
+var useEffect = React.useEffect;
+var useCallback = React.useCallback;
+var useRef = React.useRef;
+var useReducer = React.useReducer;
 
-// === SAFE STORAGE ===
-const LS={g(k){try{return localStorage.getItem(k)}catch(e){return null}},s(k,v){try{localStorage.setItem(k,v)}catch(e){}},r(k){try{localStorage.removeItem(k)}catch(e){}}};
-
-// === GIST (in-memory + localStorage) ===
-const GF='finance-hub-data.json';
-let _tk=null,_gid=null;
-const G={
-  tk(){return _tk||LS.g('fh-tk')},stk(t){_tk=t;LS.s('fh-tk',t)},
-  gid(){return _gid||LS.g('fh-gid')},sgid(id){_gid=id;LS.s('fh-gid',id)},
-  clear(){_tk=null;_gid=null;LS.r('fh-tk');LS.r('fh-gid')},
-  async val(tk){const r=await fetch('https://api.github.com/user',{headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'}});if(!r.ok)throw new Error('Invalid token');return(await r.json()).login},
-  async find(tk){const r=await fetch('https://api.github.com/gists?per_page=100',{headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'}});if(!r.ok)return null;const g=(await r.json()).find(x=>x.files&&x.files[GF]);return g?g.id:null},
-  async mk(tk,d){const r=await fetch('https://api.github.com/gists',{method:'POST',headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({description:'Finance Hub',public:false,files:{[GF]:{content:JSON.stringify(d,null,2)}}})});if(!r.ok)throw new Error('Create failed');return(await r.json()).id},
-  async push(tk,gid,d){const r=await fetch('https://api.github.com/gists/'+gid,{method:'PATCH',headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({files:{[GF]:{content:JSON.stringify(d,null,2)}}})});if(!r.ok)throw new Error('Push failed')},
-  async pull(tk,gid){const r=await fetch('https://api.github.com/gists/'+gid,{headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'},cache:'no-store'});if(!r.ok)throw new Error('Pull failed');const g=await r.json();if(!g.files[GF])throw new Error('Missing');return JSON.parse(g.files[GF].content)}
+/* =========================================================
+   LAYER 1: SAFE LOCALSTORAGE
+   ========================================================= */
+var store = {
+  get: function(k) { try { return localStorage.getItem(k); } catch(e) { return null; } },
+  set: function(k, v) { try { localStorage.setItem(k, v); } catch(e) {} },
+  del: function(k) { try { localStorage.removeItem(k); } catch(e) {} }
 };
 
-// === DATA ===
-const DEF={accounts:[{name:"AU Everyday",type:"Everyday",balance:0},{name:"AU Savings",type:"Savings",balance:0}],income:[{name:"Monthly Salary",amount:0,source:"Salary"}],budget:[{name:"Rent",amount:0},{name:"Utilities",amount:0},{name:"Groceries",amount:0},{name:"Health",amount:0},{name:"Personal",amount:0},{name:"Dining/Entertainment",amount:0}],subscriptions:[{name:"Phone Bill",amount:0,cycle:"Monthly",category:"Productivity"}],transfers:[{name:"Savings",amount:0,to:"AU Savings"}],portfolios:[{name:"AU Portfolio",stocks:[{ticker:"",name:"New Stock",shares:0,avgCost:0,currentPrice:0}]},{name:"NZ Portfolio",stocks:[{ticker:"",name:"New Stock",shares:0,avgCost:0,currentPrice:0}]}]};
-const COL={income:'#22c55e',budget:'#f59e0b',subscriptions:'#a855f7',transfers:'#3b82f6',buffer:'#64748b',negative:'#ef4444',accounts:'#ec4899',portfolio:'#f97316'};
-const AT=["Everyday","Savings","Investment","Credit Card"],IS=["Salary","Freelance","Side Hustle","Investment Returns","Refund","Other"],SC=["Monthly","Annual","Weekly"],SCA=["Productivity","Entertainment","Health","Finance","Insurance","Other"];
-function mg(d){try{return{...DEF,...d,portfolios:(d&&Array.isArray(d.portfolios))?d.portfolios:DEF.portfolios}}catch(e){return DEF}}
-function ll(){try{const s=LS.g('fh-d6');return s?mg(JSON.parse(s)):DEF}catch(e){return DEF}}
-function ls(d){LS.s('fh-d6',JSON.stringify(d))}
-function as(a,k){return(a||[]).reduce((s,i)=>s+(parseFloat(i[k||'amount'])||0),0)}
-function fm(n){const v=isNaN(n)?0:Math.abs(n);return'$'+v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
-function fs(n){const v=isNaN(n)?0:Math.abs(n);return'$'+v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
-function sv(s){return(parseFloat(s.shares)||0)*(parseFloat(s.currentPrice)||0)}
-function sc(s){return(parseFloat(s.shares)||0)*(parseFloat(s.avgCost)||0)}
-function apv(p){return(p||[]).reduce((s,pf)=>(pf.stocks||[]).reduce((ss,st)=>ss+sv(st),s),0)}
-function smo(s){const a=parseFloat(s.amount)||0,c=s.cycle||'Monthly';return c==='Weekly'?a*52/12:c==='Annual'?a/12:a}
-function stot(ss){return(ss||[]).reduce((s,sub)=>s+smo(sub),0)}
+/* =========================================================
+   LAYER 2: GIST API
+   All fetch calls isolated here. Every method returns a
+   value or throws with a human-readable message.
+   ========================================================= */
+var GIST_FILE = 'finance-hub-data.json';
+var memToken = null;
+var memGistId = null;
 
-// === DRAG ===
-function useDrag(items,onR){
-  const fr=useRef(null),to=useRef(null),[dI,sD]=useState(null),[oI,sO]=useState(null);
-  const h=useCallback(i=>({
-    onDragStart:ev=>{fr.current=i;sD(i);ev.dataTransfer.effectAllowed='move';ev.dataTransfer.setData('text/plain','')},
-    onDragOver:ev=>{ev.preventDefault();to.current=i;sO(i)},
-    onDragEnd:()=>{if(fr.current!==null&&to.current!==null&&fr.current!==to.current){const r=[...items];const[m]=r.splice(fr.current,1);r.splice(to.current,0,m);onR(r)}fr.current=null;to.current=null;sD(null);sO(null)},
-    onDragLeave:()=>{if(to.current===i){to.current=null;sO(null)}}
-  }),[items,onR]);
-  return{h,dI,oI}
+var gist = {
+  // Token management (memory primary, localStorage backup)
+  getToken: function() { return memToken || store.get('fh8-token'); },
+  setToken: function(t) { memToken = t; store.set('fh8-token', t); },
+  getGistId: function() { return memGistId || store.get('fh8-gist-id'); },
+  setGistId: function(id) { memGistId = id; store.set('fh8-gist-id', id); },
+  clearAuth: function() { memToken = null; memGistId = null; store.del('fh8-token'); store.del('fh8-gist-id'); },
+  hasAuth: function() { return !!(memToken || store.get('fh8-token')); },
+
+  // Validate token, returns username
+  validate: async function(token) {
+    var res = await fetch('https://api.github.com/user', {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (res.status === 401) throw new Error('Invalid token. Check you copied the full token.');
+    if (res.status === 403) throw new Error('Token lacks permission. Use a Classic token with gist scope.');
+    if (!res.ok) throw new Error('GitHub error ' + res.status);
+    var json = await res.json();
+    return json.login;
+  },
+
+  // Search user's gists for our file
+  findExisting: async function(token) {
+    var res = await fetch('https://api.github.com/gists?per_page=100', {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) return null;
+    var list = await res.json();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].files && list[i].files[GIST_FILE]) return list[i].id;
+    }
+    return null;
+  },
+
+  // Create new private gist
+  create: async function(token, data) {
+    var body = { description: 'Finance Hub Data', public: false, files: {} };
+    body.files[GIST_FILE] = { content: JSON.stringify(data, null, 2) };
+    var res = await fetch('https://api.github.com/gists', {
+      method: 'POST',
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (res.status === 403) throw new Error('Token cannot create gists. Need Classic token with gist scope.');
+    if (!res.ok) throw new Error('Failed to create gist (' + res.status + ')');
+    var json = await res.json();
+    return json.id;
+  },
+
+  // Push data to gist. Auto-recovers from 404 by creating new gist.
+  push: async function(token, gistId, data) {
+    var body = { files: {} };
+    body.files[GIST_FILE] = { content: JSON.stringify(data, null, 2) };
+    var res = await fetch('https://api.github.com/gists/' + gistId, {
+      method: 'PATCH',
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (res.status === 404) {
+      // Gist deleted externally, auto-recover
+      var newId = await gist.create(token, data);
+      gist.setGistId(newId);
+      return;
+    }
+    if (!res.ok) throw new Error('Sync failed (' + res.status + ')');
+  },
+
+  // Pull data from gist. Returns data object or null.
+  pull: async function(token, gistId) {
+    var res = await fetch('https://api.github.com/gists/' + gistId, {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' },
+      cache: 'no-store'
+    });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error('Pull failed (' + res.status + ')');
+    var json = await res.json();
+    if (!json.files || !json.files[GIST_FILE]) return null;
+    try { return JSON.parse(json.files[GIST_FILE].content); } catch(e) { return null; }
+  }
+};
+
+/* =========================================================
+   LAYER 3: DATA DEFAULTS AND MERGE
+   ========================================================= */
+var DEFAULTS = {
+  accounts: [{ name: 'AU Everyday', type: 'Everyday', balance: 0 }, { name: 'AU Savings', type: 'Savings', balance: 0 }],
+  income: [{ name: 'Monthly Salary', amount: 0, source: 'Salary' }],
+  budget: [{ name: 'Rent', amount: 0 }, { name: 'Utilities', amount: 0 }, { name: 'Groceries', amount: 0 }, { name: 'Health', amount: 0 }, { name: 'Personal', amount: 0 }, { name: 'Dining/Entertainment', amount: 0 }],
+  subscriptions: [{ name: 'Phone Bill', amount: 0, cycle: 'Monthly', category: 'Productivity' }],
+  transfers: [{ name: 'Savings', amount: 0, to: 'AU Savings' }],
+  portfolios: [
+    { name: 'AU Portfolio', stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] },
+    { name: 'NZ Portfolio', stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] }
+  ]
+};
+
+function mergeData(raw) {
+  if (!raw || typeof raw !== 'object') return JSON.parse(JSON.stringify(DEFAULTS));
+  var d = {};
+  var keys = Object.keys(DEFAULTS);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    d[k] = Array.isArray(raw[k]) && raw[k].length > 0 ? raw[k] : JSON.parse(JSON.stringify(DEFAULTS[k]));
+  }
+  return d;
 }
 
-// === COMPONENTS ===
-function Am(p){return e('div',{className:'ac'},e('span',{className:'sg2'},'$'),e('input',{type:'number',className:'ia',value:p.v||0,step:'0.01',onChange:ev=>p.o(parseFloat(ev.target.value)||0)}))}
-
-function Sec(p){
-  const{title,color,items,fields,sk,ch,def,totalFn,rowInfo}=p;
-  const total=totalFn?totalFn(items):as(items,fields.find(f=>f.am)?.key||'amount');
-  const{h,dI,oI}=useDrag(items,r=>ch(sk,r));
-  const upd=(i,k,v)=>{const u=[...(items||[])];u[i]={...u[i],[k]:v};ch(sk,u)};
-  const rm=i=>ch(sk,(items||[]).filter((_,idx)=>idx!==i));
-  const add=()=>ch(sk,[...(items||[]),{...def}]);
-  return e('div',{style:{marginBottom:8}},
-    e('div',{className:'sh'},e('div',{className:'st'},e('div',{className:'sd',style:{backgroundColor:color}}),title),e('div',{className:'stot',style:{color}},fm(total))),
-    (items||[]).map((item,i)=>{const d=h(i);const info=rowInfo?rowInfo(item):null;
-      return e('div',{key:i,className:'row'+(dI===i?' dg':'')+(oI===i?' do':''),onDragOver:d.onDragOver,onDragEnd:d.onDragEnd,onDragLeave:d.onDragLeave},
-        e('span',{className:'dh',draggable:true,onDragStart:d.onDragStart,onDragEnd:d.onDragEnd},'\u2847'),
-        e('div',{className:'rb',style:{backgroundColor:color}}),
-        ...fields.map((f,fi)=>{
-          if(f.am)return e(Am,{key:fi,v:item[f.key],o:v=>upd(i,f.key,v)});
-          if(f.opts)return e('select',{key:fi,className:'is',style:f.w?{width:f.w}:{},value:item[f.key]||f.opts[0],onChange:ev=>upd(i,f.key,ev.target.value)},f.opts.map(o=>e('option',{key:o,value:o},o)));
-          return e('input',{key:fi,type:'text',className:f.grow?'ig':'',style:f.w?{width:f.w}:{},value:item[f.key]||'',placeholder:f.ph||'',onChange:ev=>upd(i,f.key,ev.target.value)})
-        }),
-        info?e('span',{key:'nf',style:{fontSize:11,color:'#64748b',fontFamily:"'IBM Plex Mono'",whiteSpace:'nowrap',flexShrink:0}},info):null,
-        e('button',{className:'br',onClick:()=>rm(i)},'\u00d7'))}),
-    e('button',{className:'ba',onClick:add},'+ Add'))
+function loadLocal() {
+  var raw = store.get('fh8-data');
+  if (!raw) return null;
+  try { return mergeData(JSON.parse(raw)); } catch(e) { return null; }
 }
 
-function Sankey(p){
-  const d=p.data,t={i:as(d.income,'amount'),b:as(d.budget,'amount'),s:stot(d.subscriptions),x:as(d.transfers,'amount')};
-  const out=t.b+t.s+t.x,buf=t.i-out;
-  const cats=[{l:'Budget',t:t.b,c:COL.budget},{l:'Subscriptions',t:t.s,c:COL.subscriptions},{l:'Transfers',t:t.x,c:COL.transfers},{l:buf>=0?'Buffer':'Shortfall',t:Math.abs(buf),c:buf>=0?COL.buffer:COL.negative}].filter(c=>c.t>0);
-  if(t.i===0&&out===0)return e('div',{style:{textAlign:'center',padding:'40px 0',color:'#64748b',fontSize:14}},'Add income and expenses to see the flow');
-  const W=700,H=340,lx=80,rx=580,nw=14,pd=14,tp=20,tot=cats.reduce((s,c)=>s+c.t,0),aH=H-tp*2-(cats.length-1)*pd;
-  let cy=tp;const rn=cats.map(c=>{const h=Math.max(20,(c.t/tot)*aH);const n={...c,y:cy,h};cy+=h+pd;return n});
-  const off=(aH-(cy-pd-tp))/2;rn.forEach(n=>n.y+=off);const sx=lx+nw,mx=(sx+rx)/2;let fy=tp;
-  return e('svg',{viewBox:'0 0 '+W+' '+H,style:{width:'100%',height:'auto'}},
-    e('defs',null,...rn.map((n,i)=>e('linearGradient',{key:i,id:'g'+i,x1:0,x2:1,y1:0,y2:0},e('stop',{offset:'0%',stopColor:COL.income,stopOpacity:.45}),e('stop',{offset:'100%',stopColor:n.c,stopOpacity:.45})))),
-    ...rn.map((n,i)=>{const fh=(n.t/tot)*aH,sfy=fy;fy+=fh;return e('path',{key:'p'+i,fill:'url(#g'+i+')',d:'M '+sx+' '+sfy+' C '+mx+' '+sfy+','+mx+' '+n.y+','+rx+' '+n.y+' L '+rx+' '+(n.y+n.h)+' C '+mx+' '+(n.y+n.h)+','+mx+' '+(sfy+fh)+','+sx+' '+(sfy+fh)+' Z'})}),
-    e('rect',{x:lx,y:tp,width:nw,height:aH,rx:5,fill:COL.income}),
-    e('text',{x:lx-12,y:tp+aH/2-10,textAnchor:'end',fill:'#e2e8f0',fontSize:13,fontWeight:600,fontFamily:"'Outfit'"},'Income'),
-    e('text',{x:lx-12,y:tp+aH/2+10,textAnchor:'end',fill:COL.income,fontSize:12,fontWeight:600,fontFamily:"'IBM Plex Mono'"},fs(t.i)),
-    ...rn.map((n,i)=>e('g',{key:'r'+i},e('rect',{x:rx,y:n.y,width:nw,height:n.h,rx:5,fill:n.c}),e('text',{x:rx+nw+12,y:n.y+n.h/2-8,dominantBaseline:'middle',fill:'#e2e8f0',fontSize:12,fontWeight:500,fontFamily:"'Outfit'"},n.l),e('text',{x:rx+nw+12,y:n.y+n.h/2+10,dominantBaseline:'middle',fill:n.c,fontSize:11,fontWeight:600,fontFamily:"'IBM Plex Mono'"},fs(n.t)))))
+function saveLocal(data) {
+  store.set('fh8-data', JSON.stringify(data));
 }
 
-function Port(p){
-  const{portfolios,ch}=p,[act,sA]=useState(0),sa=Math.min(act,(portfolios||[]).length-1),po=(portfolios||[])[sa];
-  if(!po)return e('div',null,'No portfolios');
-  const{h:dH,dI,oI}=useDrag(po.stocks||[],r=>{const u=[...portfolios];u[sa]={...po,stocks:r};ch('portfolios',u)});
-  const us=(si,k,v)=>{const u=[...portfolios],st=[...(po.stocks||[])];st[si]={...st[si],[k]:v};u[sa]={...po,stocks:st};ch('portfolios',u)};
-  const rs=si=>{const u=[...portfolios];u[sa]={...po,stocks:(po.stocks||[]).filter((_,i)=>i!==si)};ch('portfolios',u)};
-  const ads=()=>{const u=[...portfolios];u[sa]={...po,stocks:[...(po.stocks||[]),{ticker:'',name:'New Stock',shares:0,avgCost:0,currentPrice:0}]};ch('portfolios',u)};
-  const rn=n=>{const u=[...portfolios];u[sa]={...po,name:n};ch('portfolios',u)};
-  const ap=()=>{ch('portfolios',[...portfolios,{name:'Portfolio '+(portfolios.length+1),stocks:[{ticker:'',name:'New Stock',shares:0,avgCost:0,currentPrice:0}]}]);sA(portfolios.length)};
-  const dp=pi=>{if(portfolios.length<=1)return;if(!confirm('Remove "'+portfolios[pi].name+'"?'))return;const u=portfolios.filter((_,i)=>i!==pi);ch('portfolios',u);if(sa>=u.length)sA(u.length-1);else if(pi<sa)sA(sa-1)};
-  let tI=0,tV=0;(po.stocks||[]).forEach(s=>{tI+=sc(s);tV+=sv(s)});const tGL=tV-tI,tGP=tI>0?((tGL/tI)*100).toFixed(1):'0.0';
-  let aI=0,aV=0;(portfolios||[]).forEach(p=>(p.stocks||[]).forEach(s=>{aI+=sc(s);aV+=sv(s)}));
-  return e('div',null,
-    e('div',{className:'pt'},...(portfolios||[]).map((p,pi)=>e('button',{key:pi,className:'ptb'+(pi===sa?' on':''),onClick:()=>sA(pi)},e('span',null,p.name),portfolios.length>1?e('span',{className:'ptc',onClick:ev=>{ev.stopPropagation();dp(pi)}},'\u00d7'):null)),e('button',{className:'pta',onClick:ap},'+ Add Portfolio')),
-    e('div',{className:'sh'},e('div',{className:'st'},e('div',{className:'sd',style:{backgroundColor:COL.portfolio}}),e('input',{className:'pni',value:po.name,onChange:ev=>rn(ev.target.value)})),e('div',{className:'stot',style:{color:COL.portfolio}},fm(tV))),
-    e('div',{className:'skg'},
-      e('div',{className:'skh'},e('span'),e('span',null,'Ticker'),e('span',null,'Name'),e('span',null,'Shares'),e('span',null,'Avg Cost'),e('span',null,'Price'),e('span',null,'Value'),e('span',null,'G/L %'),e('span')),
-      ...(po.stocks||[]).map((st,si)=>{const vl=sv(st),co=sc(st),gl=vl-co,glp=co>0?((gl/co)*100).toFixed(1):'0.0',cls=gl>0?'gp':gl<0?'gn':'gz';const d=dH(si);
-        return e('div',{key:si,className:'skr'+(dI===si?' dg':'')+(oI===si?' do':''),onDragOver:d.onDragOver,onDragEnd:d.onDragEnd,onDragLeave:d.onDragLeave},
-          e('span',{className:'dh',draggable:true,onDragStart:d.onDragStart,onDragEnd:d.onDragEnd},'\u2847'),
-          e('input',{className:'tk',value:st.ticker||'',placeholder:'TKR',onChange:ev=>us(si,'ticker',ev.target.value)}),
-          e('input',{value:st.name||'',placeholder:'Stock name',onChange:ev=>us(si,'name',ev.target.value)}),
-          e('input',{type:'number',value:st.shares||0,step:'0.01',onChange:ev=>us(si,'shares',ev.target.value)}),
-          e('input',{type:'number',value:st.avgCost||0,step:'0.01',onChange:ev=>us(si,'avgCost',ev.target.value)}),
-          e('input',{type:'number',value:st.currentPrice||0,step:'0.01',onChange:ev=>us(si,'currentPrice',ev.target.value)}),
-          e('div',{className:'cp'},fs(vl)),e('div',{className:'cp '+cls},(gl>=0?'+':'')+glp+'%'),
-          e('button',{className:'br',onClick:()=>rs(si)},'\u00d7'))})),
-    e('button',{className:'ba',onClick:ads},'+ Add Stock'),
-    e('div',{className:'ps'},
-      e('div',null,e('div',{className:'psl'},'This Portfolio'),e('div',{className:'psv',style:{color:COL.portfolio}},fm(tV)),e('div',{className:'psl',style:{marginTop:2}},e('span',{className:tGL>=0?'gp':'gn'},(tGL>=0?'+':'-')+fm(tGL)+' ('+(tGL>=0?'+':'')+tGP+'%)'))),
-      e('div',null,e('div',{className:'psl'},'Total Invested'),e('div',{className:'psv',style:{color:'#e2e8f0'}},fm(tI))),
-      e('div',null,e('div',{className:'psl'},'All Portfolios'),e('div',{className:'psv',style:{color:COL.portfolio}},fm(aV)),e('div',{className:'psl',style:{marginTop:2}},e('span',{className:(aV-aI)>=0?'gp':'gn'},((aV-aI)>=0?'+':'-')+fm(aV-aI))))))
+/* =========================================================
+   LAYER 4: HELPER FUNCTIONS
+   ========================================================= */
+var COLORS = { income: '#22c55e', budget: '#f59e0b', subscriptions: '#a855f7', transfers: '#3b82f6', buffer: '#64748b', negative: '#ef4444', accounts: '#ec4899', portfolio: '#f97316' };
+var ACCT_TYPES = ['Everyday', 'Savings', 'Investment', 'Credit Card'];
+var INC_SOURCES = ['Salary', 'Freelance', 'Side Hustle', 'Investment Returns', 'Refund', 'Other'];
+var SUB_CYCLES = ['Monthly', 'Annual', 'Weekly'];
+var SUB_CATS = ['Productivity', 'Entertainment', 'Health', 'Finance', 'Insurance', 'Other'];
+
+function sumArr(arr, key) {
+  var s = 0;
+  if (!arr) return 0;
+  for (var i = 0; i < arr.length; i++) s += parseFloat(arr[i][key || 'amount']) || 0;
+  return s;
 }
 
-function Setup(p){
-  const[tk,sTk]=useState(''),[ld,sL]=useState(false),[er,sE]=useState('');
-  const go=async()=>{if(!tk.trim())return;sL(true);sE('');
-    try{const u=await G.val(tk.trim());G.stk(tk.trim());const eid=await G.find(tk.trim());
-      if(eid){G.sgid(eid);const cd=await G.pull(tk.trim(),eid);p.ok(mg(cd),u)}
-      else{const nid=await G.mk(tk.trim(),DEF);G.sgid(nid);p.ok(DEF,u)}
-    }catch(err){sE(err.message||'Connection failed')}sL(false)};
-  return e('div',{className:'su'},e('div',{className:'sb'},
-    e('h2',null,'Connect to GitHub'),e('p',null,'Your data syncs via a private GitHub Gist.'),
-    e('div',{className:'sst'},e('ol',null,
-      e('li',null,'Go to ',e('a',{href:'https://github.com/settings/tokens?type=beta',target:'_blank',style:{color:COL.income}},'GitHub Token Settings')),
-      e('li',null,'Click ',e('code',null,'Generate new token')),e('li',null,'Name it ',e('code',null,'finance-hub-sync')),
-      e('li',null,'Under ',e('code',null,'Account permissions'),', set ',e('code',null,'Gists'),' to ',e('code',null,'Read and write')),
-      e('li',null,'Generate and paste below'))),
-    e('input',{type:'password',placeholder:'ghp_xxxxxxxxxxxxxxxxxxxx',value:tk,onChange:ev=>sTk(ev.target.value),onKeyDown:ev=>{if(ev.key==='Enter')go()}}),
-    e('button',{className:'sbn',onClick:go,disabled:ld||!tk.trim()},ld?'Connecting...':'Connect'),
-    er?e('div',{className:'ser'},er):null,
-    e('button',{className:'ssk',onClick:p.skip},'Skip (local only)')))
+function fmtDollar(n) {
+  var v = isNaN(n) ? 0 : Math.abs(n);
+  return '$' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// === MAIN APP (single useReducer to avoid batching issues) ===
-const init={phase:'loading',data:DEF,tab:'overview',sync:{s:'none',m:'',u:''}};
-function reducer(st,a){
-  switch(a.type){
-    case 'LOADED':return{...st,phase:'app',data:a.data,sync:a.sync||st.sync};
-    case 'SETUP':return{...st,phase:'setup',data:a.data||st.data};
-    case 'SET_DATA':return{...st,data:a.data};
-    case 'SET_TAB':return{...st,tab:a.tab};
-    case 'SET_SYNC':return{...st,sync:{...st.sync,...a.sync}};
-    case 'SET_PHASE':return{...st,phase:a.phase};
-    default:return st;
+function fmtShort(n) {
+  var v = isNaN(n) ? 0 : Math.abs(n);
+  return '$' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function stockVal(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.currentPrice) || 0); }
+function stockCost(s) { return (parseFloat(s.shares) || 0) * (parseFloat(s.avgCost) || 0); }
+function totalPortfolioVal(ps) {
+  var s = 0;
+  if (!ps) return 0;
+  for (var i = 0; i < ps.length; i++) {
+    var stocks = ps[i].stocks || [];
+    for (var j = 0; j < stocks.length; j++) s += stockVal(stocks[j]);
+  }
+  return s;
+}
+
+function subMonthly(sub) {
+  var a = parseFloat(sub.amount) || 0;
+  var c = sub.cycle || 'Monthly';
+  if (c === 'Weekly') return a * 52 / 12;
+  if (c === 'Annual') return a / 12;
+  return a;
+}
+
+function subsTotal(subs) {
+  var s = 0;
+  if (!subs) return 0;
+  for (var i = 0; i < subs.length; i++) s += subMonthly(subs[i]);
+  return s;
+}
+
+/* =========================================================
+   LAYER 5: APP STATE REDUCER
+   Pure function. No side effects.
+   ========================================================= */
+var INITIAL = { phase: 'loading', data: DEFAULTS, tab: 'overview', syncStatus: 'none', syncMsg: '', syncUser: '' };
+
+function appReducer(state, action) {
+  switch (action.type) {
+    case 'BOOT_DONE':
+      return { phase: 'app', data: action.data, tab: 'overview', syncStatus: action.syncStatus || 'none', syncMsg: action.syncMsg || '', syncUser: action.syncUser || '' };
+    case 'SHOW_SETUP':
+      return Object.assign({}, state, { phase: 'setup' });
+    case 'UPDATE_DATA':
+      return Object.assign({}, state, { data: action.data });
+    case 'SET_TAB':
+      return Object.assign({}, state, { tab: action.tab });
+    case 'SET_SYNC':
+      return Object.assign({}, state, { syncStatus: action.status, syncMsg: action.msg, syncUser: action.user !== undefined ? action.user : state.syncUser });
+    default:
+      return state;
   }
 }
 
-function App(){
-  const[st,dispatch]=useReducer(reducer,init);
-  const timer=useRef(null);
-  const{phase,data,tab,sync}=st;
+/* =========================================================
+   LAYER 6: DRAG HOOK
+   ========================================================= */
+function useDragSort(items, onReorder) {
+  var fromRef = useRef(null);
+  var toRef = useRef(null);
+  var state = useState({ dragIdx: null, overIdx: null });
+  var dragState = state[0];
+  var setDragState = state[1];
 
-  useEffect(()=>{
-    (async()=>{
-      const tk=G.tk(),gid=G.gid();
-      if(tk&&gid){
-        try{
-          const u=await G.val(tk);const cd=await G.pull(tk,gid);const d=mg(cd);ls(d);
-          dispatch({type:'LOADED',data:d,sync:{s:'ok',m:'Synced',u}});
-        }catch(e){dispatch({type:'LOADED',data:ll(),sync:{s:'error',m:'Sync failed',u:''}});}
-      }else{dispatch({type:'SETUP',data:ll()});}
-    })();
-  },[]);
+  var makeHandlers = useCallback(function(index) {
+    return {
+      onDragStart: function(ev) {
+        fromRef.current = index;
+        setDragState({ dragIdx: index, overIdx: null });
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData('text/plain', '');
+      },
+      onDragOver: function(ev) {
+        ev.preventDefault();
+        toRef.current = index;
+        setDragState(function(prev) { return { dragIdx: prev.dragIdx, overIdx: index }; });
+      },
+      onDragEnd: function() {
+        var f = fromRef.current;
+        var t = toRef.current;
+        if (f !== null && t !== null && f !== t) {
+          var arr = items.slice();
+          var moved = arr.splice(f, 1)[0];
+          arr.splice(t, 0, moved);
+          onReorder(arr);
+        }
+        fromRef.current = null;
+        toRef.current = null;
+        setDragState({ dragIdx: null, overIdx: null });
+      },
+      onDragLeave: function() {
+        if (toRef.current === index) {
+          toRef.current = null;
+          setDragState(function(prev) { return { dragIdx: prev.dragIdx, overIdx: null }; });
+        }
+      }
+    };
+  }, [items, onReorder]);
 
-  const cloudPush=useCallback(async nd=>{
-    const tk=G.tk(),gid=G.gid();if(!tk||!gid)return;
-    dispatch({type:'SET_SYNC',sync:{s:'syncing',m:'Saving...'}});
-    try{await G.push(tk,gid,nd);dispatch({type:'SET_SYNC',sync:{s:'ok',m:'Synced '+new Date().toLocaleTimeString()}});}
-    catch(e){dispatch({type:'SET_SYNC',sync:{s:'error',m:'Sync failed'}});}
-  },[]);
-
-  const ch=useCallback((k,v)=>{
-    const nd={...data,[k]:v};dispatch({type:'SET_DATA',data:nd});ls(nd);
-    if(timer.current)clearTimeout(timer.current);
-    timer.current=setTimeout(()=>cloudPush(nd),1500);
-  },[data,cloudPush]);
-
-  // Handlers
-  const doExport=()=>{const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='finance-hub.json';a.click();URL.revokeObjectURL(u)};
-  const doImport=()=>{const inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=re=>{try{const d=mg(JSON.parse(re.target.result));dispatch({type:'SET_DATA',data:d});ls(d);cloudPush(d)}catch(e){alert('Invalid file')}};r.readAsText(f)};inp.click()};
-  const doReset=()=>{if(confirm('Reset all data?')){dispatch({type:'SET_DATA',data:DEF});ls(DEF);cloudPush(DEF)}};
-  const doPull=async()=>{const tk=G.tk(),gid=G.gid();if(!tk||!gid)return;dispatch({type:'SET_SYNC',sync:{s:'syncing',m:'Pulling...'}});try{const cd=await G.pull(tk,gid);const d=mg(cd);dispatch({type:'SET_DATA',data:d});ls(d);dispatch({type:'SET_SYNC',sync:{s:'ok',m:'Pulled '+new Date().toLocaleTimeString()}})}catch(e){dispatch({type:'SET_SYNC',sync:{s:'error',m:'Pull failed'}})}};
-  const doDisco=()=>{if(confirm('Disconnect sync?')){G.clear();dispatch({type:'SET_SYNC',sync:{s:'none',m:'',u:''}})}};
-
-  if(phase==='loading')return e('div',{style:{display:'flex',alignItems:'center',justifyContent:'center',minHeight:'60vh',color:'#64748b'}},'Loading...');
-  if(phase==='setup')return e(Setup,{
-    ok:(d,u)=>{ls(d);dispatch({type:'LOADED',data:d,sync:{s:'ok',m:'Connected',u}})},
-    skip:()=>dispatch({type:'LOADED',data:ll(),sync:{s:'none',m:'',u:''}})
-  });
-
-  // Compute totals inline (no useMemo)
-  const tot={income:as(data.income,'amount'),budget:as(data.budget,'amount'),subs:stot(data.subscriptions),xfer:as(data.transfers,'amount'),acct:as(data.accounts,'balance'),port:apv(data.portfolios)};
-  const out=tot.budget+tot.subs+tot.xfer,buf=tot.income-out;
-  const cards=[{l:'Income',v:tot.income,c:COL.income},{l:'Budget',v:tot.budget,c:COL.budget},{l:'Subscriptions',v:tot.subs,c:COL.subscriptions},{l:'Transfers',v:tot.xfer,c:COL.transfers},{l:'Accounts',v:tot.acct,c:COL.accounts},{l:'Portfolio',v:tot.port,c:COL.portfolio},{l:buf>=0?'Buffer':'Shortfall',v:Math.abs(buf),c:buf>=0?COL.buffer:COL.negative}];
-  const tbs=[{k:'overview',l:'Overview'},{k:'accounts',l:'Accounts'},{k:'budget',l:'Budget'},{k:'transfers',l:'Transfers'},{k:'income',l:'Income'},{k:'subscriptions',l:'Subscriptions'},{k:'portfolio',l:'Portfolio'}];
-  const sp=(...c)=>e('div',{className:'sp'},...c);
-  const sP=(t,c,sk,def,flds)=>({title:t,color:c,items:data[sk],sk,ch,def,fields:flds});
-  const subR=item=>{const c=item.cycle||'Monthly';return c==='Monthly'?null:fm(smo(item))+'/mo'};
-
-  let content;
-  if(tab==='overview'){content=e('div',{className:'gg'},
-    sp(e(Sec,{key:'i',...sP('Income',COL.income,'income',{name:'',amount:0,source:'Other'},[{key:'name',ph:'Source',grow:true},{key:'amount',am:true}])}),e('div',{key:'s',style:{height:16}}),e(Sec,{key:'b',...sP('Budget',COL.budget,'budget',{name:'',amount:0},[{key:'name',ph:'Category',grow:true},{key:'amount',am:true}])})),
-    sp(e(Sec,{key:'sb',...sP('Subscriptions',COL.subscriptions,'subscriptions',{name:'',amount:0,cycle:'Monthly',category:'Other'},[{key:'name',ph:'Service',grow:true},{key:'amount',am:true}]),totalFn:stot,rowInfo:subR}),e('div',{key:'s2',style:{height:16}}),e(Sec,{key:'t',...sP('Transfers',COL.transfers,'transfers',{name:'',amount:0,to:''},[{key:'name',ph:'Name',grow:true},{key:'amount',am:true}])})))
-  }else if(tab==='accounts'){content=sp(e(Sec,sP('Accounts',COL.accounts,'accounts',{name:'',type:'Everyday',balance:0},[{key:'name',ph:'Account name',grow:true},{key:'type',opts:AT},{key:'balance',am:true}])))
-  }else if(tab==='budget'){content=sp(e(Sec,sP('Monthly Budget',COL.budget,'budget',{name:'',amount:0},[{key:'name',ph:'Category',grow:true},{key:'amount',am:true}])))
-  }else if(tab==='transfers'){content=sp(e(Sec,sP('Planned Transfers',COL.transfers,'transfers',{name:'',amount:0,to:''},[{key:'name',ph:'Transfer name',grow:true},{key:'to',ph:'To',w:'120px'},{key:'amount',am:true}])))
-  }else if(tab==='income'){content=sp(e(Sec,sP('Income',COL.income,'income',{name:'',amount:0,source:'Other'},[{key:'name',ph:'Name',grow:true},{key:'amount',am:true},{key:'source',opts:IS,w:'140px'}])))
-  }else if(tab==='subscriptions'){content=sp(e(Sec,{...sP('Subscriptions',COL.subscriptions,'subscriptions',{name:'',amount:0,cycle:'Monthly',category:'Other'},[{key:'name',ph:'Service',grow:true},{key:'amount',am:true},{key:'cycle',opts:SC,w:'110px'},{key:'category',opts:SCA}]),totalFn:stot,rowInfo:subR}))
-  }else if(tab==='portfolio'){content=sp(e(Port,{portfolios:data.portfolios||[],ch}))}
-
-  const hasSy=!!G.tk(),dc=sync.s==='ok'?'ok':sync.s==='error'?'er':sync.s==='syncing'?'pn':'';
-
-  return e('div',null,
-    e('h1',null,'Finance Hub'),e('p',{className:'sub'},'Your money, visualized.'),
-    e('div',{className:'sg'},...cards.map((c,i)=>e('div',{key:i,className:'sc',style:{borderTopColor:c.c}},e('div',{className:'lb'},c.l),e('div',{className:'vl',style:{color:c.c}},fm(c.v))))),
-    e('div',{className:'fc'},e(Sankey,{data})),
-    e('div',{className:'tabs'},...tbs.map(t=>e('button',{key:t.k,className:'tab'+(tab===t.k?' on':''),onClick:()=>dispatch({type:'SET_TAB',tab:t.k})},t.l))),
-    content,
-    e('div',{className:'tb'},
-      e('div',{className:'ss'},dc?e('div',{className:'ssd '+dc}):null,e('span',{style:{color:sync.s==='error'?COL.negative:'#64748b'}},hasSy?(sync.u?sync.u+' \u00b7 ':'')+sync.m:'Local only')),
-      hasSy?e('button',{onClick:doPull},'Pull'):null,
-      hasSy?e('button',{onClick:doDisco},'Disconnect'):e('button',{onClick:()=>dispatch({type:'SET_PHASE',phase:'setup'})},'Connect GitHub'),
-      e('button',{onClick:doImport},'Import'),e('button',{onClick:doExport},'Export'),
-      e('button',{className:'bd',onClick:doReset},'Reset')))
+  return { makeHandlers: makeHandlers, dragIdx: dragState.dragIdx, overIdx: dragState.overIdx };
 }
 
-// React 18 createRoot (proper batching)
+/* =========================================================
+   LAYER 7: UI COMPONENTS
+   All stateless (except Portfolio's local tab state).
+   Receive data and onChange via props.
+   ========================================================= */
+
+// Amount input
+function AmountInput(props) {
+  return e('div', { className: 'amt-wrap' },
+    e('span', { className: 'amt-sign' }, '$'),
+    e('input', { type: 'number', className: 'amt-input', value: props.value || 0, step: '0.01',
+      onChange: function(ev) { props.onChange(parseFloat(ev.target.value) || 0); }
+    })
+  );
+}
+
+// Generic section (income, budget, transfers, subscriptions, accounts)
+function Section(props) {
+  var title = props.title, color = props.color, items = props.items || [], fields = props.fields;
+  var sectionKey = props.sectionKey, onChange = props.onChange, defaultItem = props.defaultItem;
+  var totalFn = props.totalFn, rowInfo = props.rowInfo;
+
+  var total = totalFn ? totalFn(items) : sumArr(items, (fields.find(function(f) { return f.isAmount; }) || {}).key || 'amount');
+
+  var dragSort = useDragSort(items, function(reordered) { onChange(sectionKey, reordered); });
+
+  function updateItem(idx, key, val) {
+    var arr = items.slice();
+    arr[idx] = Object.assign({}, arr[idx]);
+    arr[idx][key] = val;
+    onChange(sectionKey, arr);
+  }
+  function removeItem(idx) { onChange(sectionKey, items.filter(function(_, i) { return i !== idx; })); }
+  function addItem() { onChange(sectionKey, items.concat([Object.assign({}, defaultItem)])); }
+
+  var rows = items.map(function(item, idx) {
+    var handlers = dragSort.makeHandlers(idx);
+    var info = rowInfo ? rowInfo(item) : null;
+    var cls = 'row' + (dragSort.dragIdx === idx ? ' dragging' : '') + (dragSort.overIdx === idx ? ' dragover' : '');
+
+    var fieldEls = fields.map(function(f, fi) {
+      if (f.isAmount) return e(AmountInput, { key: fi, value: item[f.key], onChange: function(v) { updateItem(idx, f.key, v); } });
+      if (f.options) return e('select', { key: fi, className: 'sel-input', style: f.width ? { width: f.width } : {},
+        value: item[f.key] || f.options[0], onChange: function(ev) { updateItem(idx, f.key, ev.target.value); }
+      }, f.options.map(function(o) { return e('option', { key: o, value: o }, o); }));
+      return e('input', { key: fi, type: 'text', className: f.grow ? 'grow' : '', style: f.width ? { width: f.width } : {},
+        value: item[f.key] || '', placeholder: f.placeholder || '',
+        onChange: function(ev) { updateItem(idx, f.key, ev.target.value); }
+      });
+    });
+
+    return e('div', { key: idx, className: cls, onDragOver: handlers.onDragOver, onDragEnd: handlers.onDragEnd, onDragLeave: handlers.onDragLeave },
+      e('span', { className: 'grip', draggable: true, onDragStart: handlers.onDragStart, onDragEnd: handlers.onDragEnd }, '\u2847'),
+      e('div', { className: 'bar', style: { backgroundColor: color } }),
+      fieldEls,
+      info ? e('span', { style: { fontSize: 11, color: '#64748b', fontFamily: "'IBM Plex Mono'", whiteSpace: 'nowrap', flexShrink: 0 } }, info) : null,
+      e('button', { className: 'btn-rm', onClick: function() { removeItem(idx); } }, '\u00d7')
+    );
+  });
+
+  return e('div', { style: { marginBottom: 8 } },
+    e('div', { className: 'sec-head' },
+      e('div', { className: 'sec-title' }, e('div', { className: 'sec-dot', style: { backgroundColor: color } }), title),
+      e('div', { className: 'sec-total', style: { color: color } }, fmtDollar(total))
+    ),
+    rows,
+    e('button', { className: 'btn-add', onClick: addItem }, '+ Add')
+  );
+}
+
+// Sankey flow diagram
+function SankeyDiagram(props) {
+  var d = props.data;
+  var ti = sumArr(d.income, 'amount');
+  var tb = sumArr(d.budget, 'amount');
+  var ts = subsTotal(d.subscriptions);
+  var tx = sumArr(d.transfers, 'amount');
+  var totalOut = tb + ts + tx;
+  var buffer = ti - totalOut;
+
+  var cats = [
+    { label: 'Budget', total: tb, color: COLORS.budget },
+    { label: 'Subscriptions', total: ts, color: COLORS.subscriptions },
+    { label: 'Transfers', total: tx, color: COLORS.transfers },
+    { label: buffer >= 0 ? 'Buffer' : 'Shortfall', total: Math.abs(buffer), color: buffer >= 0 ? COLORS.buffer : COLORS.negative }
+  ].filter(function(c) { return c.total > 0; });
+
+  if (ti === 0 && totalOut === 0) {
+    return e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#64748b', fontSize: 14 } }, 'Add income and expenses to see the flow');
+  }
+
+  var W = 700, H = 340, lx = 80, rx = 580, nw = 14, pad = 14, tp = 20;
+  var catTotal = 0;
+  for (var i = 0; i < cats.length; i++) catTotal += cats[i].total;
+  var avail = H - tp * 2 - (cats.length - 1) * pad;
+
+  var cy = tp;
+  var nodes = cats.map(function(c) {
+    var h = Math.max(20, (c.total / catTotal) * avail);
+    var n = { label: c.label, total: c.total, color: c.color, y: cy, h: h };
+    cy += h + pad;
+    return n;
+  });
+  var offset = (avail - (cy - pad - tp)) / 2;
+  nodes.forEach(function(n) { n.y += offset; });
+
+  var sx = lx + nw, mx = (sx + rx) / 2;
+  var fy = tp;
+
+  var defs = nodes.map(function(n, i) {
+    return e('linearGradient', { key: i, id: 'grad' + i, x1: 0, x2: 1, y1: 0, y2: 0 },
+      e('stop', { offset: '0%', stopColor: COLORS.income, stopOpacity: 0.45 }),
+      e('stop', { offset: '100%', stopColor: n.color, stopOpacity: 0.45 })
+    );
+  });
+
+  var paths = nodes.map(function(n, i) {
+    var fh = (n.total / catTotal) * avail;
+    var sfy = fy;
+    fy += fh;
+    return e('path', { key: 'p' + i, fill: 'url(#grad' + i + ')',
+      d: 'M ' + sx + ' ' + sfy + ' C ' + mx + ' ' + sfy + ',' + mx + ' ' + n.y + ',' + rx + ' ' + n.y +
+         ' L ' + rx + ' ' + (n.y + n.h) + ' C ' + mx + ' ' + (n.y + n.h) + ',' + mx + ' ' + (sfy + fh) + ',' + sx + ' ' + (sfy + fh) + ' Z'
+    });
+  });
+
+  var rightLabels = nodes.map(function(n, i) {
+    return e('g', { key: 'r' + i },
+      e('rect', { x: rx, y: n.y, width: nw, height: n.h, rx: 5, fill: n.color }),
+      e('text', { x: rx + nw + 12, y: n.y + n.h / 2 - 8, dominantBaseline: 'middle', fill: '#e2e8f0', fontSize: 12, fontWeight: 500, fontFamily: "'Outfit'" }, n.label),
+      e('text', { x: rx + nw + 12, y: n.y + n.h / 2 + 10, dominantBaseline: 'middle', fill: n.color, fontSize: 11, fontWeight: 600, fontFamily: "'IBM Plex Mono'" }, fmtShort(n.total))
+    );
+  });
+
+  return e('svg', { viewBox: '0 0 ' + W + ' ' + H, style: { width: '100%', height: 'auto' } },
+    e('defs', null, defs),
+    paths,
+    e('rect', { x: lx, y: tp, width: nw, height: avail, rx: 5, fill: COLORS.income }),
+    e('text', { x: lx - 12, y: tp + avail / 2 - 10, textAnchor: 'end', fill: '#e2e8f0', fontSize: 13, fontWeight: 600, fontFamily: "'Outfit'" }, 'Income'),
+    e('text', { x: lx - 12, y: tp + avail / 2 + 10, textAnchor: 'end', fill: COLORS.income, fontSize: 12, fontWeight: 600, fontFamily: "'IBM Plex Mono'" }, fmtShort(ti)),
+    rightLabels
+  );
+}
+
+// Portfolio section with sub-tabs
+function PortfolioSection(props) {
+  var portfolios = props.portfolios || [];
+  var onChange = props.onChange;
+  var activeState = useState(0);
+  var activeIdx = activeState[0];
+  var setActiveIdx = activeState[1];
+
+  var safeIdx = Math.min(activeIdx, Math.max(0, portfolios.length - 1));
+  var port = portfolios[safeIdx];
+  if (!port) return e('div', null, 'No portfolios');
+
+  var stocks = port.stocks || [];
+  var dragSort = useDragSort(stocks, function(reordered) {
+    var up = portfolios.slice();
+    up[safeIdx] = Object.assign({}, port, { stocks: reordered });
+    onChange('portfolios', up);
+  });
+
+  function updateStock(si, key, val) {
+    var up = portfolios.slice();
+    var st = stocks.slice();
+    st[si] = Object.assign({}, st[si]);
+    st[si][key] = val;
+    up[safeIdx] = Object.assign({}, port, { stocks: st });
+    onChange('portfolios', up);
+  }
+  function removeStock(si) {
+    var up = portfolios.slice();
+    up[safeIdx] = Object.assign({}, port, { stocks: stocks.filter(function(_, i) { return i !== si; }) });
+    onChange('portfolios', up);
+  }
+  function addStock() {
+    var up = portfolios.slice();
+    up[safeIdx] = Object.assign({}, port, { stocks: stocks.concat([{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }]) });
+    onChange('portfolios', up);
+  }
+  function renamePort(name) {
+    var up = portfolios.slice();
+    up[safeIdx] = Object.assign({}, port, { name: name });
+    onChange('portfolios', up);
+  }
+  function addPortfolio() {
+    var np = { name: 'Portfolio ' + (portfolios.length + 1), stocks: [{ ticker: '', name: 'New Stock', shares: 0, avgCost: 0, currentPrice: 0 }] };
+    onChange('portfolios', portfolios.concat([np]));
+    setActiveIdx(portfolios.length);
+  }
+  function removePortfolio(pi) {
+    if (portfolios.length <= 1) return;
+    if (!confirm('Remove "' + portfolios[pi].name + '"?')) return;
+    var up = portfolios.filter(function(_, i) { return i !== pi; });
+    onChange('portfolios', up);
+    if (safeIdx >= up.length) setActiveIdx(up.length - 1);
+    else if (pi < safeIdx) setActiveIdx(safeIdx - 1);
+  }
+
+  // Totals for this portfolio
+  var thisInvested = 0, thisValue = 0;
+  stocks.forEach(function(s) { thisInvested += stockCost(s); thisValue += stockVal(s); });
+  var thisGL = thisValue - thisInvested;
+  var thisGLP = thisInvested > 0 ? ((thisGL / thisInvested) * 100).toFixed(1) : '0.0';
+
+  // Totals across all portfolios
+  var allInvested = 0, allValue = 0;
+  portfolios.forEach(function(p) { (p.stocks || []).forEach(function(s) { allInvested += stockCost(s); allValue += stockVal(s); }); });
+
+  // Portfolio sub-tabs
+  var pTabs = portfolios.map(function(p, pi) {
+    return e('button', { key: pi, className: 'p-tab' + (pi === safeIdx ? ' active' : ''), onClick: function() { setActiveIdx(pi); } },
+      e('span', null, p.name),
+      portfolios.length > 1 ? e('span', { className: 'p-tab-x', onClick: function(ev) { ev.stopPropagation(); removePortfolio(pi); } }, '\u00d7') : null
+    );
+  });
+
+  // Stock rows
+  var stockRows = stocks.map(function(st, si) {
+    var val = stockVal(st), cost = stockCost(st), gl = val - cost;
+    var glp = cost > 0 ? ((gl / cost) * 100).toFixed(1) : '0.0';
+    var cls = gl > 0 ? 'pos' : gl < 0 ? 'neg' : 'flat';
+    var handlers = dragSort.makeHandlers(si);
+    var rowCls = 'stock-row' + (dragSort.dragIdx === si ? ' dragging' : '') + (dragSort.overIdx === si ? ' dragover' : '');
+
+    return e('div', { key: si, className: rowCls, onDragOver: handlers.onDragOver, onDragEnd: handlers.onDragEnd, onDragLeave: handlers.onDragLeave },
+      e('span', { className: 'grip', draggable: true, onDragStart: handlers.onDragStart, onDragEnd: handlers.onDragEnd }, '\u2847'),
+      e('input', { className: 'ticker', value: st.ticker || '', placeholder: 'TKR', onChange: function(ev) { updateStock(si, 'ticker', ev.target.value); } }),
+      e('input', { value: st.name || '', placeholder: 'Stock name', onChange: function(ev) { updateStock(si, 'name', ev.target.value); } }),
+      e('input', { type: 'number', value: st.shares || 0, step: '0.01', onChange: function(ev) { updateStock(si, 'shares', ev.target.value); } }),
+      e('input', { type: 'number', value: st.avgCost || 0, step: '0.01', onChange: function(ev) { updateStock(si, 'avgCost', ev.target.value); } }),
+      e('input', { type: 'number', value: st.currentPrice || 0, step: '0.01', onChange: function(ev) { updateStock(si, 'currentPrice', ev.target.value); } }),
+      e('div', { className: 'computed' }, fmtShort(val)),
+      e('div', { className: 'computed ' + cls }, (gl >= 0 ? '+' : '') + glp + '%'),
+      e('button', { className: 'btn-rm', onClick: function() { removeStock(si); } }, '\u00d7')
+    );
+  });
+
+  return e('div', null,
+    e('div', { className: 'p-tabs' }, pTabs, e('button', { className: 'p-tab-add', onClick: addPortfolio }, '+ Add Portfolio')),
+    e('div', { className: 'sec-head' },
+      e('div', { className: 'sec-title' },
+        e('div', { className: 'sec-dot', style: { backgroundColor: COLORS.portfolio } }),
+        e('input', { className: 'port-name', value: port.name, onChange: function(ev) { renamePort(ev.target.value); } })
+      ),
+      e('div', { className: 'sec-total', style: { color: COLORS.portfolio } }, fmtDollar(thisValue))
+    ),
+    e('div', null,
+      e('div', { className: 'stock-head' },
+        e('span'), e('span', null, 'Ticker'), e('span', null, 'Name'), e('span', null, 'Shares'),
+        e('span', null, 'Avg Cost'), e('span', null, 'Price'), e('span', null, 'Value'), e('span', null, 'G/L %'), e('span')
+      ),
+      stockRows
+    ),
+    e('button', { className: 'btn-add', onClick: addStock }, '+ Add Stock'),
+    e('div', { className: 'port-summary' },
+      e('div', null,
+        e('div', { className: 'ps-label' }, 'This Portfolio'),
+        e('div', { className: 'ps-value', style: { color: COLORS.portfolio } }, fmtDollar(thisValue)),
+        e('div', { className: 'ps-label', style: { marginTop: 2 } },
+          e('span', { className: thisGL >= 0 ? 'pos' : 'neg' }, (thisGL >= 0 ? '+' : '-') + fmtDollar(thisGL) + ' (' + (thisGL >= 0 ? '+' : '') + thisGLP + '%)'))
+      ),
+      e('div', null, e('div', { className: 'ps-label' }, 'Total Invested'), e('div', { className: 'ps-value', style: { color: '#e2e8f0' } }, fmtDollar(thisInvested))),
+      e('div', null,
+        e('div', { className: 'ps-label' }, 'All Portfolios'),
+        e('div', { className: 'ps-value', style: { color: COLORS.portfolio } }, fmtDollar(allValue)),
+        e('div', { className: 'ps-label', style: { marginTop: 2 } },
+          e('span', { className: (allValue - allInvested) >= 0 ? 'pos' : 'neg' }, ((allValue - allInvested) >= 0 ? '+' : '-') + fmtDollar(allValue - allInvested)))
+      )
+    )
+  );
+}
+
+// Setup screen
+function SetupScreen(props) {
+  var tokenState = useState('');
+  var loadingState = useState(false);
+  var errorState = useState('');
+  var token = tokenState[0], setToken = tokenState[1];
+  var loading = loadingState[0], setLoading = loadingState[1];
+  var error = errorState[0], setError = errorState[1];
+
+  function handleConnect() {
+    if (!token.trim() || loading) return;
+    setLoading(true);
+    setError('');
+
+    var tk = token.trim();
+    var localData = props.localData;
+
+    gist.validate(tk).then(function(username) {
+      gist.setToken(tk);
+      // Try to find existing gist
+      return gist.findExisting(tk).then(function(existingId) {
+        if (existingId) {
+          gist.setGistId(existingId);
+          return gist.pull(tk, existingId).then(function(cloudData) {
+            if (cloudData) {
+              var merged = mergeData(cloudData);
+              props.onConnected(merged, username);
+            } else {
+              // Gist exists but empty/corrupt - push local data
+              return gist.push(tk, existingId, localData).then(function() {
+                props.onConnected(localData, username);
+              });
+            }
+          });
+        } else {
+          // No gist - create with local data (preserves everything)
+          return gist.create(tk, localData).then(function(newId) {
+            gist.setGistId(newId);
+            props.onConnected(localData, username);
+          });
+        }
+      });
+    }).catch(function(err) {
+      setError(err.message || 'Connection failed');
+      setLoading(false);
+    });
+  }
+
+  return e('div', { className: 'setup-wrap' },
+    e('div', { className: 'setup-box' },
+      e('h2', null, 'Connect to GitHub'),
+      e('p', null, 'Sync your data across all devices via a private GitHub Gist.'),
+      e('div', { className: 'warn-box' }, 'Important: Use a Classic token, not a fine-grained token. Fine-grained tokens have known issues with the Gists API.'),
+      e('div', { className: 'setup-steps' },
+        e('ol', null,
+          e('li', null, 'Go to ', e('a', { href: 'https://github.com/settings/tokens/new', target: '_blank' }, 'Create Classic Token')),
+          e('li', null, 'Name it ', e('code', null, 'finance-hub-sync')),
+          e('li', null, 'Set expiration to your preference'),
+          e('li', null, 'Check ', e('strong', null, 'only'), ' the ', e('code', null, 'gist'), ' scope'),
+          e('li', null, 'Click Generate token and paste below')
+        )
+      ),
+      e('input', { type: 'password', placeholder: 'ghp_xxxxxxxxxxxxxxxxxxxx', value: token,
+        onChange: function(ev) { setToken(ev.target.value); },
+        onKeyDown: function(ev) { if (ev.key === 'Enter') handleConnect(); }
+      }),
+      e('button', { className: 'setup-go', onClick: handleConnect, disabled: loading || !token.trim() }, loading ? 'Connecting...' : 'Connect'),
+      error ? e('div', { className: 'setup-err' }, error) : null,
+      e('button', { className: 'setup-skip', onClick: props.onSkip }, 'Skip (local only, no cross-device sync)')
+    )
+  );
+}
+
+/* =========================================================
+   LAYER 8: APP SHELL
+   ========================================================= */
+function App() {
+  var reduced = useReducer(appReducer, INITIAL);
+  var state = reduced[0];
+  var dispatch = reduced[1];
+
+  // Ref always holds current data (avoids stale closures)
+  var dataRef = useRef(state.data);
+  dataRef.current = state.data;
+
+  // Debounce timer for cloud sync
+  var syncTimer = useRef(null);
+
+  // === BOOT SEQUENCE (runs once) ===
+  useEffect(function() {
+    var localData = loadLocal();
+    var token = gist.getToken();
+    var gistId = gist.getGistId();
+
+    if (token && gistId) {
+      // Has auth - try cloud load, fall back to local
+      gist.validate(token).then(function(username) {
+        return gist.pull(token, gistId).then(function(cloudData) {
+          if (cloudData) {
+            var d = mergeData(cloudData);
+            saveLocal(d);
+            dispatch({ type: 'BOOT_DONE', data: d, syncStatus: 'ok', syncMsg: 'Synced', syncUser: username });
+          } else {
+            // Gist gone - search for another or create new
+            return gist.findExisting(token).then(function(altId) {
+              if (altId) {
+                gist.setGistId(altId);
+                return gist.pull(token, altId).then(function(altData) {
+                  var d = altData ? mergeData(altData) : (localData || DEFAULTS);
+                  saveLocal(d);
+                  dispatch({ type: 'BOOT_DONE', data: d, syncStatus: 'ok', syncMsg: 'Recovered', syncUser: username });
+                });
+              } else {
+                // No gist at all - create with local data
+                var d = localData || DEFAULTS;
+                return gist.create(token, d).then(function(newId) {
+                  gist.setGistId(newId);
+                  saveLocal(d);
+                  dispatch({ type: 'BOOT_DONE', data: d, syncStatus: 'ok', syncMsg: 'Created new gist', syncUser: username });
+                });
+              }
+            });
+          }
+        });
+      }).catch(function(err) {
+        // Auth or network failed - use local data, show app anyway
+        var d = localData || DEFAULTS;
+        dispatch({ type: 'BOOT_DONE', data: d, syncStatus: 'error', syncMsg: err.message || 'Sync failed' });
+      });
+    } else if (localData) {
+      // No auth but has local data - go straight to app
+      dispatch({ type: 'BOOT_DONE', data: localData });
+    } else {
+      // First time ever - show setup with defaults
+      dispatch({ type: 'BOOT_DONE', data: DEFAULTS });
+      dispatch({ type: 'SHOW_SETUP' });
+    }
+  }, []);
+
+  // === CLOUD PUSH (debounced, auto-recovers) ===
+  function pushToCloud(data) {
+    var token = gist.getToken();
+    var gistId = gist.getGistId();
+    if (!token || !gistId) return;
+
+    dispatch({ type: 'SET_SYNC', status: 'busy', msg: 'Saving...' });
+    gist.push(token, gistId, data).then(function() {
+      dispatch({ type: 'SET_SYNC', status: 'ok', msg: 'Synced ' + new Date().toLocaleTimeString() });
+    }).catch(function(err) {
+      dispatch({ type: 'SET_SYNC', status: 'error', msg: err.message || 'Sync failed' });
+    });
+  }
+
+  // === CHANGE HANDLER (single stable function) ===
+  function handleChange(key, value) {
+    var newData = Object.assign({}, dataRef.current);
+    newData[key] = value;
+    dataRef.current = newData;
+
+    // Tier 1: memory (immediate)
+    dispatch({ type: 'UPDATE_DATA', data: newData });
+    // Tier 2: localStorage (immediate)
+    saveLocal(newData);
+    // Tier 3: cloud (debounced 2s)
+    if (syncTimer.current) clearTimeout(syncTimer.current);
+    syncTimer.current = setTimeout(function() { pushToCloud(newData); }, 2000);
+  }
+
+  // === TOOLBAR ACTIONS ===
+  function doExport() {
+    var blob = new Blob([JSON.stringify(dataRef.current, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'finance-hub-backup.json'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function doImport() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = function(ev) {
+      var file = ev.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(re) {
+        try {
+          var imported = mergeData(JSON.parse(re.target.result));
+          dataRef.current = imported;
+          dispatch({ type: 'UPDATE_DATA', data: imported });
+          saveLocal(imported);
+          pushToCloud(imported);
+        } catch(err) { alert('Invalid file'); }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  function doReset() {
+    if (!confirm('Reset all data to defaults? This cannot be undone.')) return;
+    var fresh = JSON.parse(JSON.stringify(DEFAULTS));
+    dataRef.current = fresh;
+    dispatch({ type: 'UPDATE_DATA', data: fresh });
+    saveLocal(fresh);
+    pushToCloud(fresh);
+  }
+
+  function doPull() {
+    var token = gist.getToken(), gistId = gist.getGistId();
+    if (!token || !gistId) return;
+    dispatch({ type: 'SET_SYNC', status: 'busy', msg: 'Pulling...' });
+    gist.pull(token, gistId).then(function(cloudData) {
+      if (cloudData) {
+        var d = mergeData(cloudData);
+        dataRef.current = d;
+        dispatch({ type: 'UPDATE_DATA', data: d });
+        saveLocal(d);
+        dispatch({ type: 'SET_SYNC', status: 'ok', msg: 'Pulled ' + new Date().toLocaleTimeString() });
+      } else {
+        dispatch({ type: 'SET_SYNC', status: 'error', msg: 'No data in gist' });
+      }
+    }).catch(function(err) {
+      dispatch({ type: 'SET_SYNC', status: 'error', msg: err.message || 'Pull failed' });
+    });
+  }
+
+  function doDisconnect() {
+    if (!confirm('Disconnect sync? Data stays on this device.')) return;
+    gist.clearAuth();
+    dispatch({ type: 'SET_SYNC', status: 'none', msg: '', user: '' });
+  }
+
+  // === RENDER ===
+  var phase = state.phase;
+  var data = state.data;
+  var tab = state.tab;
+
+  // Loading
+  if (phase === 'loading') {
+    return e('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#64748b' } }, 'Loading...');
+  }
+
+  // Setup
+  if (phase === 'setup') {
+    return e(SetupScreen, {
+      localData: dataRef.current,
+      onConnected: function(data, username) {
+        dataRef.current = data;
+        saveLocal(data);
+        dispatch({ type: 'BOOT_DONE', data: data, syncStatus: 'ok', syncMsg: 'Connected', syncUser: username });
+      },
+      onSkip: function() {
+        dispatch({ type: 'BOOT_DONE', data: dataRef.current });
+      }
+    });
+  }
+
+  // Main app
+  var totIncome = sumArr(data.income, 'amount');
+  var totBudget = sumArr(data.budget, 'amount');
+  var totSubs = subsTotal(data.subscriptions);
+  var totXfer = sumArr(data.transfers, 'amount');
+  var totAcct = sumArr(data.accounts, 'balance');
+  var totPort = totalPortfolioVal(data.portfolios);
+  var totalOut = totBudget + totSubs + totXfer;
+  var buffer = totIncome - totalOut;
+
+  var summaryCards = [
+    { label: 'Income', value: totIncome, color: COLORS.income },
+    { label: 'Budget', value: totBudget, color: COLORS.budget },
+    { label: 'Subscriptions', value: totSubs, color: COLORS.subscriptions },
+    { label: 'Transfers', value: totXfer, color: COLORS.transfers },
+    { label: 'Accounts', value: totAcct, color: COLORS.accounts },
+    { label: 'Portfolio', value: totPort, color: COLORS.portfolio },
+    { label: buffer >= 0 ? 'Buffer' : 'Shortfall', value: Math.abs(buffer), color: buffer >= 0 ? COLORS.buffer : COLORS.negative }
+  ];
+
+  var tabDefs = [
+    { key: 'overview', label: 'Overview' },
+    { key: 'accounts', label: 'Accounts' },
+    { key: 'budget', label: 'Budget' },
+    { key: 'transfers', label: 'Transfers' },
+    { key: 'income', label: 'Income' },
+    { key: 'subscriptions', label: 'Subscriptions' },
+    { key: 'portfolio', label: 'Portfolio' }
+  ];
+
+  // Sub-row info for subscriptions
+  function subRowInfo(item) {
+    var c = item.cycle || 'Monthly';
+    if (c === 'Monthly') return null;
+    return fmtDollar(subMonthly(item)) + '/mo';
+  }
+
+  // Build section props helper
+  function secProps(title, color, sk, def, fields, extras) {
+    return Object.assign({ title: title, color: color, items: data[sk], sectionKey: sk, onChange: handleChange, defaultItem: def, fields: fields }, extras || {});
+  }
+
+  // Tab content
+  var content;
+  if (tab === 'overview') {
+    content = e('div', { className: 'grid-2' },
+      e('div', { className: 'panel' },
+        e(Section, secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+          [{ key: 'name', placeholder: 'Source', grow: true }, { key: 'amount', isAmount: true }])),
+        e('div', { style: { height: 16 } }),
+        e(Section, secProps('Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+          [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', isAmount: true }]))
+      ),
+      e('div', { className: 'panel' },
+        e(Section, secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+          [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', isAmount: true }],
+          { totalFn: subsTotal, rowInfo: subRowInfo })),
+        e('div', { style: { height: 16 } }),
+        e(Section, secProps('Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
+          [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', isAmount: true }]))
+      )
+    );
+  } else if (tab === 'accounts') {
+    content = e('div', { className: 'panel' },
+      e(Section, secProps('Accounts', COLORS.accounts, 'accounts', { name: '', type: 'Everyday', balance: 0 },
+        [{ key: 'name', placeholder: 'Account name', grow: true }, { key: 'type', options: ACCT_TYPES }, { key: 'balance', isAmount: true }]))
+    );
+  } else if (tab === 'budget') {
+    content = e('div', { className: 'panel' },
+      e(Section, secProps('Monthly Budget', COLORS.budget, 'budget', { name: '', amount: 0 },
+        [{ key: 'name', placeholder: 'Category', grow: true }, { key: 'amount', isAmount: true }]))
+    );
+  } else if (tab === 'transfers') {
+    content = e('div', { className: 'panel' },
+      e(Section, secProps('Planned Transfers', COLORS.transfers, 'transfers', { name: '', amount: 0, to: '' },
+        [{ key: 'name', placeholder: 'Transfer name', grow: true }, { key: 'to', placeholder: 'To', width: '120px' }, { key: 'amount', isAmount: true }]))
+    );
+  } else if (tab === 'income') {
+    content = e('div', { className: 'panel' },
+      e(Section, secProps('Income', COLORS.income, 'income', { name: '', amount: 0, source: 'Other' },
+        [{ key: 'name', placeholder: 'Name', grow: true }, { key: 'amount', isAmount: true }, { key: 'source', options: INC_SOURCES, width: '140px' }]))
+    );
+  } else if (tab === 'subscriptions') {
+    content = e('div', { className: 'panel' },
+      e(Section, secProps('Subscriptions', COLORS.subscriptions, 'subscriptions', { name: '', amount: 0, cycle: 'Monthly', category: 'Other' },
+        [{ key: 'name', placeholder: 'Service', grow: true }, { key: 'amount', isAmount: true }, { key: 'cycle', options: SUB_CYCLES, width: '110px' }, { key: 'category', options: SUB_CATS }],
+        { totalFn: subsTotal, rowInfo: subRowInfo }))
+    );
+  } else if (tab === 'portfolio') {
+    content = e('div', { className: 'panel' },
+      e(PortfolioSection, { portfolios: data.portfolios, onChange: handleChange })
+    );
+  }
+
+  // Sync indicator
+  var hasAuth = gist.hasAuth();
+  var dotClass = state.syncStatus === 'ok' ? 'ok' : state.syncStatus === 'error' ? 'err' : state.syncStatus === 'busy' ? 'busy' : '';
+  var syncText = hasAuth ? ((state.syncUser ? state.syncUser + ' \u00b7 ' : '') + state.syncMsg) : 'Local only';
+
+  return e('div', null,
+    e('h1', null, 'Finance Hub'),
+    e('p', { className: 'subtitle' }, 'Your money, visualized.'),
+
+    // Summary cards
+    e('div', { className: 'cards' }, summaryCards.map(function(c, i) {
+      return e('div', { key: i, className: 'card', style: { borderTopColor: c.color } },
+        e('div', { className: 'card-label' }, c.label),
+        e('div', { className: 'card-value', style: { color: c.color } }, fmtDollar(c.value))
+      );
+    })),
+
+    // Sankey
+    e('div', { className: 'flow-box' }, e(SankeyDiagram, { data: data })),
+
+    // Tabs
+    e('div', { className: 'tabs' }, tabDefs.map(function(t) {
+      return e('button', { key: t.key, className: 'tab' + (tab === t.key ? ' active' : ''), onClick: function() { dispatch({ type: 'SET_TAB', tab: t.key }); } }, t.label);
+    })),
+
+    // Content
+    content,
+
+    // Toolbar
+    e('div', { className: 'toolbar' },
+      e('div', { className: 'sync-bar' },
+        dotClass ? e('div', { className: 'sync-dot ' + dotClass }) : null,
+        e('span', { style: { color: state.syncStatus === 'error' ? COLORS.negative : '#64748b' } }, syncText)
+      ),
+      hasAuth ? e('button', { onClick: doPull }, 'Pull') : null,
+      hasAuth ? e('button', { onClick: doDisconnect }, 'Disconnect') : e('button', { onClick: function() { dispatch({ type: 'SHOW_SETUP' }); } }, 'Connect GitHub'),
+      e('button', { onClick: doImport }, 'Import'),
+      e('button', { onClick: doExport }, 'Export'),
+      e('button', { className: 'danger', onClick: doReset }, 'Reset')
+    )
+  );
+}
+
+/* =========================================================
+   LAYER 9: MOUNT (React 18 createRoot)
+   ========================================================= */
 ReactDOM.createRoot(document.getElementById('root')).render(e(App));
 </script>
 </body>
